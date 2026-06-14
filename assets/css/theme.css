@@ -86,6 +86,10 @@ a { transition: color 0.2s ease; }
    ========================================================= */
 .hero-section {
 	position: relative;
+	overflow: hidden;
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
 }
 
 .hero-bg-video {
@@ -95,15 +99,24 @@ a { transition: color 0.2s ease; }
 	height: 100%;
 	object-fit: cover;
 	z-index: 0;
+	opacity: 0;
+	transition: opacity 0.6s ease;
 }
 
-.hero-cover .wp-block-cover__background {
+.hero-overlay {
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(135deg, rgba(10, 38, 80, 0.75) 0%, rgba(23, 110, 181, 0.35) 100%);
 	z-index: 1;
+	pointer-events: none;
 }
 
-.hero-cover .wp-block-cover__inner-container {
+.hero-content {
 	position: relative;
 	z-index: 2;
+	display: flex;
+	align-items: center;
+	min-height: 100vh;
 }
 
 /* Indicador de scroll */
@@ -145,8 +158,22 @@ a { transition: color 0.2s ease; }
 /* =========================================================
    VIDEO AUTOPLAY SECTION
    ========================================================= */
+.video-autoplay-section {
+	position: relative;
+	overflow: hidden;
+	min-height: 80vh;
+}
+
 .video-autoplay-media {
 	will-change: opacity;
+}
+
+.video-autoplay-content {
+	position: relative;
+	z-index: 2;
+	display: flex;
+	align-items: center;
+	min-height: 80vh;
 }
 
 /* =========================================================
