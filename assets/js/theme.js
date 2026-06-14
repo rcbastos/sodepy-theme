@@ -80,7 +80,7 @@
 	   ========================================================= */
 	if ( 'IntersectionObserver' in window ) {
 		const animEls = document.querySelectorAll(
-			'.service-card, .portfolio-item, .testimonial-card, .stat-item, .section-header'
+			'.service-card, .portfolio-item, .testimonial-card, .stat-item, .section-header, .problem-card, .process-step, .why-us-card'
 		);
 
 		const animObserver = new IntersectionObserver(

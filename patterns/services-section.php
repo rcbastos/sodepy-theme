@@ -3,63 +3,167 @@
  * Title: Sección de Servicios
  * Slug: sodepy/services-section
  * Categories: sodepy, services
- * Description: Grid de servicios/productos con ícono, título y descripción.
- * Keywords: servicios, grid, cards, productos
+ * Description: Grid de 6 servicios con icono, título, descripción y enlace.
+ * Keywords: servicios, soluciones, grid, cards
  * Inserter: true
  */
 ?>
-<!-- wp:group {"tagName":"section","anchor":"servicios","className":"services-section","style":{"spacing":{"padding":{"top":"var:preset|spacing|100","bottom":"var:preset|spacing|100"}},"color":{"background":"var:preset|color|surface"}},"layout":{"type":"constrained"}} -->
-<section class="wp-block-group services-section" id="servicios">
+<!-- wp:group {"tagName":"section","className":"services-section","anchor":"servicios","style":{"color":{"background":"var:preset|color|base"},"spacing":{"padding":{"top":"var:preset|spacing|100","bottom":"var:preset|spacing|100"}}},"layout":{"type":"constrained"}} -->
+<section class="wp-block-group services-section" id="servicios" style="background:var(--wp--preset--color--base)">
 
-	<!-- wp:group {"className":"section-header","style":{"spacing":{"margin":{"bottom":"var:preset|spacing|80"}},"textAlign":"center"},"layout":{"type":"constrained","contentSize":"600px"}} -->
+	<!-- wp:group {"className":"section-header","style":{"spacing":{"margin":{"bottom":"var:preset|spacing|80"}},"textAlign":"center"},"layout":{"type":"constrained","contentSize":"640px"}} -->
 	<div class="wp-block-group section-header" style="text-align:center">
 		<!-- wp:paragraph {"textColor":"highlight","style":{"typography":{"fontSize":"var:preset|font-size|xs","fontWeight":"700","textTransform":"uppercase","letterSpacing":"0.15em"}}} -->
-		<p class="has-highlight-color has-text-color">✏️ Aquí va la etiqueta de sección (ej: Lo que hacemos)</p>
+		<p class="has-highlight-color has-text-color">✏️ Aquí va la etiqueta (ej: Nuestros servicios)</p>
 		<!-- /wp:paragraph -->
-		<!-- wp:heading {"level":2,"style":{"typography":{"fontSize":"var:preset|font-size|2xl","fontWeight":"700"}}} -->
-		<h2 class="wp-block-heading">Aquí va el título de tu sección de servicios</h2>
+		<!-- wp:heading {"level":2,"textColor":"primary","style":{"typography":{"fontSize":"var:preset|font-size|2xl","fontWeight":"700","lineHeight":"1.2"}}} -->
+		<h2 class="wp-block-heading has-primary-color has-text-color">Elige la solución que tu negocio necesita ahora</h2>
 		<!-- /wp:heading -->
-		<!-- wp:paragraph {"textColor":"muted"} -->
-		<p class="has-muted-color has-text-color">Aquí va una breve descripción introductoria de tus servicios o productos. Una o dos frases son suficientes.</p>
+		<!-- wp:paragraph {"textColor":"muted","style":{"typography":{"fontSize":"var:preset|font-size|md","lineHeight":"1.65"}}} -->
+		<p class="has-muted-color has-text-color">Aquí va una descripción breve de tu oferta. Presenta el abanico de soluciones disponibles para tus clientes.</p>
 		<!-- /wp:paragraph -->
 	</div>
 	<!-- /wp:group -->
 
-	<!-- wp:group {"className":"services-grid","layout":{"type":"grid","minimumColumnWidth":"280px","columnCount":3},"style":{"spacing":{"blockGap":"var:preset|spacing|50"}}} -->
-	<div class="wp-block-group services-grid">
+	<!-- Fila 1 -->
+	<!-- wp:columns {"style":{"spacing":{"blockGap":{"top":"var:preset|spacing|50","left":"var:preset|spacing|50"}}}} -->
+	<div class="wp-block-columns">
 
-		<?php
-		$services = [
-			[ 'icon' => '⭐', 'title' => 'Nombre del Servicio 1', 'desc' => 'Aquí va la descripción de este servicio. Explica qué incluye y qué beneficio obtiene el cliente.' ],
-			[ 'icon' => '🚀', 'title' => 'Nombre del Servicio 2', 'desc' => 'Aquí va la descripción de este servicio. Explica qué incluye y qué beneficio obtiene el cliente.' ],
-			[ 'icon' => '💡', 'title' => 'Nombre del Servicio 3', 'desc' => 'Aquí va la descripción de este servicio. Explica qué incluye y qué beneficio obtiene el cliente.' ],
-			[ 'icon' => '🎯', 'title' => 'Nombre del Servicio 4', 'desc' => 'Aquí va la descripción de este servicio. Explica qué incluye y qué beneficio obtiene el cliente.' ],
-			[ 'icon' => '📊', 'title' => 'Nombre del Servicio 5', 'desc' => 'Aquí va la descripción de este servicio. Explica qué incluye y qué beneficio obtiene el cliente.' ],
-			[ 'icon' => '🔧', 'title' => 'Nombre del Servicio 6', 'desc' => 'Aquí va la descripción de este servicio. Explica qué incluye y qué beneficio obtiene el cliente.' ],
-		];
-		foreach ( $services as $service ) : ?>
-
-		<!-- wp:group {"className":"service-card","style":{"border":{"radius":"12px"},"color":{"background":"var:preset|color|base"},"spacing":{"padding":{"top":"var:preset|spacing|70","bottom":"var:preset|spacing|70","left":"var:preset|spacing|60","right":"var:preset|spacing|60"}},"shadow":"var:preset|shadow|soft"},"layout":{"type":"flex","orientation":"vertical","rowGap":"var:preset|spacing|40"}} -->
-		<div class="wp-block-group service-card" style="border-radius:12px;background:var(--wp--preset--color--base);padding:var(--wp--preset--spacing--70) var(--wp--preset--spacing--60);box-shadow:var(--wp--preset--shadow--soft)">
-			<!-- wp:paragraph {"style":{"typography":{"fontSize":"2.5rem"}}} -->
-			<p style="font-size:2.5rem;margin:0"><?php echo $service['icon']; ?></p>
-			<!-- /wp:paragraph -->
-			<!-- wp:heading {"level":3,"style":{"typography":{"fontSize":"var:preset|font-size|lg","fontWeight":"700"}}} -->
-			<h3 class="wp-block-heading"><?php echo esc_html( $service['title'] ); ?></h3>
-			<!-- /wp:heading -->
-			<!-- wp:paragraph {"textColor":"muted","style":{"typography":{"fontSize":"var:preset|font-size|sm"}}} -->
-			<p class="has-muted-color has-text-color"><?php echo esc_html( $service['desc'] ); ?></p>
-			<!-- /wp:paragraph -->
-			<!-- wp:paragraph -->
-			<p><a href="#contacto" class="service-card-link">Saber más →</a></p>
-			<!-- /wp:paragraph -->
+		<!-- wp:column -->
+		<div class="wp-block-column">
+			<!-- wp:group {"className":"service-card","style":{"color":{"background":"var:preset|color|base"},"border":{"radius":"12px","color":"rgba(10,38,80,0.08)","width":"1px"},"shadow":"var:preset|shadow|soft"},"layout":{"type":"flex","orientation":"vertical"}} -->
+			<div class="wp-block-group service-card" style="background:var(--wp--preset--color--base);border-radius:12px;border:1px solid rgba(10,38,80,0.08);box-shadow:var(--wp--preset--shadow--soft);overflow:hidden">
+				<!-- wp:group {"className":"service-card-image","style":{"color":{"background":"var:preset|color|surface"},"spacing":{"padding":{"top":"var:preset|spacing|60","bottom":"var:preset|spacing|60"}}}} -->
+				<div class="wp-block-group service-card-image" style="background:var(--wp--preset--color--surface);padding:var(--wp--preset--spacing--60) 0">
+					<!-- wp:paragraph {"align":"center","style":{"typography":{"fontSize":"2.5rem"}}} --><p class="has-text-align-center" style="font-size:2.5rem;margin:0;line-height:1">🌐</p><!-- /wp:paragraph -->
+				</div>
+				<!-- /wp:group -->
+				<!-- wp:group {"style":{"spacing":{"padding":{"top":"var:preset|spacing|50","bottom":"var:preset|spacing|50","left":"var:preset|spacing|50","right":"var:preset|spacing|50"}}},"layout":{"type":"flex","orientation":"vertical","rowGap":"var:preset|spacing|30"}} -->
+				<div class="wp-block-group" style="padding:var(--wp--preset--spacing--50)">
+					<!-- wp:heading {"level":3,"textColor":"primary","style":{"typography":{"fontSize":"var:preset|font-size|md","fontWeight":"700"}}} --><h3 class="wp-block-heading has-primary-color has-text-color">✏️ Nombre del Servicio 1</h3><!-- /wp:heading -->
+					<!-- wp:paragraph {"textColor":"muted","style":{"typography":{"fontSize":"var:preset|font-size|sm","lineHeight":"1.6"}}} --><p class="has-muted-color has-text-color">Aquí va la descripción breve de este servicio. Explica el beneficio concreto que obtiene el cliente.</p><!-- /wp:paragraph -->
+					<!-- wp:paragraph {"textColor":"accent","style":{"typography":{"fontSize":"var:preset|font-size|sm","fontWeight":"600"}}} --><p class="has-accent-color has-text-color"><a href="#contacto" style="color:inherit;text-decoration:none">Saber más →</a></p><!-- /wp:paragraph -->
+				</div>
+				<!-- /wp:group -->
+			</div>
+			<!-- /wp:group -->
 		</div>
-		<!-- /wp:group -->
+		<!-- /wp:column -->
 
-		<?php endforeach; ?>
+		<!-- wp:column -->
+		<div class="wp-block-column">
+			<!-- wp:group {"className":"service-card","style":{"color":{"background":"var:preset|color|base"},"border":{"radius":"12px","color":"rgba(10,38,80,0.08)","width":"1px"},"shadow":"var:preset|shadow|soft"},"layout":{"type":"flex","orientation":"vertical"}} -->
+			<div class="wp-block-group service-card" style="background:var(--wp--preset--color--base);border-radius:12px;border:1px solid rgba(10,38,80,0.08);box-shadow:var(--wp--preset--shadow--soft);overflow:hidden">
+				<!-- wp:group {"className":"service-card-image","style":{"color":{"background":"var:preset|color|surface"},"spacing":{"padding":{"top":"var:preset|spacing|60","bottom":"var:preset|spacing|60"}}}} -->
+				<div class="wp-block-group service-card-image" style="background:var(--wp--preset--color--surface);padding:var(--wp--preset--spacing--60) 0">
+					<!-- wp:paragraph {"align":"center","style":{"typography":{"fontSize":"2.5rem"}}} --><p class="has-text-align-center" style="font-size:2.5rem;margin:0;line-height:1">🛒</p><!-- /wp:paragraph -->
+				</div>
+				<!-- /wp:group -->
+				<!-- wp:group {"style":{"spacing":{"padding":{"top":"var:preset|spacing|50","bottom":"var:preset|spacing|50","left":"var:preset|spacing|50","right":"var:preset|spacing|50"}}},"layout":{"type":"flex","orientation":"vertical","rowGap":"var:preset|spacing|30"}} -->
+				<div class="wp-block-group" style="padding:var(--wp--preset--spacing--50)">
+					<!-- wp:heading {"level":3,"textColor":"primary","style":{"typography":{"fontSize":"var:preset|font-size|md","fontWeight":"700"}}} --><h3 class="wp-block-heading has-primary-color has-text-color">✏️ Nombre del Servicio 2</h3><!-- /wp:heading -->
+					<!-- wp:paragraph {"textColor":"muted","style":{"typography":{"fontSize":"var:preset|font-size|sm","lineHeight":"1.6"}}} --><p class="has-muted-color has-text-color">Aquí va la descripción breve de este servicio. Explica el beneficio concreto que obtiene el cliente.</p><!-- /wp:paragraph -->
+					<!-- wp:paragraph {"textColor":"accent","style":{"typography":{"fontSize":"var:preset|font-size|sm","fontWeight":"600"}}} --><p class="has-accent-color has-text-color"><a href="#contacto" style="color:inherit;text-decoration:none">Saber más →</a></p><!-- /wp:paragraph -->
+				</div>
+				<!-- /wp:group -->
+			</div>
+			<!-- /wp:group -->
+		</div>
+		<!-- /wp:column -->
+
+		<!-- wp:column -->
+		<div class="wp-block-column">
+			<!-- wp:group {"className":"service-card","style":{"color":{"background":"var:preset|color|base"},"border":{"radius":"12px","color":"rgba(10,38,80,0.08)","width":"1px"},"shadow":"var:preset|shadow|soft"},"layout":{"type":"flex","orientation":"vertical"}} -->
+			<div class="wp-block-group service-card" style="background:var(--wp--preset--color--base);border-radius:12px;border:1px solid rgba(10,38,80,0.08);box-shadow:var(--wp--preset--shadow--soft);overflow:hidden">
+				<!-- wp:group {"className":"service-card-image","style":{"color":{"background":"var:preset|color|surface"},"spacing":{"padding":{"top":"var:preset|spacing|60","bottom":"var:preset|spacing|60"}}}} -->
+				<div class="wp-block-group service-card-image" style="background:var(--wp--preset--color--surface);padding:var(--wp--preset--spacing--60) 0">
+					<!-- wp:paragraph {"align":"center","style":{"typography":{"fontSize":"2.5rem"}}} --><p class="has-text-align-center" style="font-size:2.5rem;margin:0;line-height:1">📊</p><!-- /wp:paragraph -->
+				</div>
+				<!-- /wp:group -->
+				<!-- wp:group {"style":{"spacing":{"padding":{"top":"var:preset|spacing|50","bottom":"var:preset|spacing|50","left":"var:preset|spacing|50","right":"var:preset|spacing|50"}}},"layout":{"type":"flex","orientation":"vertical","rowGap":"var:preset|spacing|30"}} -->
+				<div class="wp-block-group" style="padding:var(--wp--preset--spacing--50)">
+					<!-- wp:heading {"level":3,"textColor":"primary","style":{"typography":{"fontSize":"var:preset|font-size|md","fontWeight":"700"}}} --><h3 class="wp-block-heading has-primary-color has-text-color">✏️ Nombre del Servicio 3</h3><!-- /wp:heading -->
+					<!-- wp:paragraph {"textColor":"muted","style":{"typography":{"fontSize":"var:preset|font-size|sm","lineHeight":"1.6"}}} --><p class="has-muted-color has-text-color">Aquí va la descripción breve de este servicio. Explica el beneficio concreto que obtiene el cliente.</p><!-- /wp:paragraph -->
+					<!-- wp:paragraph {"textColor":"accent","style":{"typography":{"fontSize":"var:preset|font-size|sm","fontWeight":"600"}}} --><p class="has-accent-color has-text-color"><a href="#contacto" style="color:inherit;text-decoration:none">Saber más →</a></p><!-- /wp:paragraph -->
+				</div>
+				<!-- /wp:group -->
+			</div>
+			<!-- /wp:group -->
+		</div>
+		<!-- /wp:column -->
 
 	</div>
-	<!-- /wp:group -->
+	<!-- /wp:columns -->
+
+	<!-- Fila 2 -->
+	<!-- wp:columns {"style":{"spacing":{"blockGap":{"top":"var:preset|spacing|50","left":"var:preset|spacing|50"},"margin":{"top":"var:preset|spacing|50"}}}} -->
+	<div class="wp-block-columns" style="margin-top:var(--wp--preset--spacing--50)">
+
+		<!-- wp:column -->
+		<div class="wp-block-column">
+			<!-- wp:group {"className":"service-card","style":{"color":{"background":"var:preset|color|base"},"border":{"radius":"12px","color":"rgba(10,38,80,0.08)","width":"1px"},"shadow":"var:preset|shadow|soft"},"layout":{"type":"flex","orientation":"vertical"}} -->
+			<div class="wp-block-group service-card" style="background:var(--wp--preset--color--base);border-radius:12px;border:1px solid rgba(10,38,80,0.08);box-shadow:var(--wp--preset--shadow--soft);overflow:hidden">
+				<!-- wp:group {"className":"service-card-image","style":{"color":{"background":"var:preset|color|surface"},"spacing":{"padding":{"top":"var:preset|spacing|60","bottom":"var:preset|spacing|60"}}}} -->
+				<div class="wp-block-group service-card-image" style="background:var(--wp--preset--color--surface);padding:var(--wp--preset--spacing--60) 0">
+					<!-- wp:paragraph {"align":"center","style":{"typography":{"fontSize":"2.5rem"}}} --><p class="has-text-align-center" style="font-size:2.5rem;margin:0;line-height:1">📱</p><!-- /wp:paragraph -->
+				</div>
+				<!-- /wp:group -->
+				<!-- wp:group {"style":{"spacing":{"padding":{"top":"var:preset|spacing|50","bottom":"var:preset|spacing|50","left":"var:preset|spacing|50","right":"var:preset|spacing|50"}}},"layout":{"type":"flex","orientation":"vertical","rowGap":"var:preset|spacing|30"}} -->
+				<div class="wp-block-group" style="padding:var(--wp--preset--spacing--50)">
+					<!-- wp:heading {"level":3,"textColor":"primary","style":{"typography":{"fontSize":"var:preset|font-size|md","fontWeight":"700"}}} --><h3 class="wp-block-heading has-primary-color has-text-color">✏️ Nombre del Servicio 4</h3><!-- /wp:heading -->
+					<!-- wp:paragraph {"textColor":"muted","style":{"typography":{"fontSize":"var:preset|font-size|sm","lineHeight":"1.6"}}} --><p class="has-muted-color has-text-color">Aquí va la descripción breve de este servicio. Explica el beneficio concreto que obtiene el cliente.</p><!-- /wp:paragraph -->
+					<!-- wp:paragraph {"textColor":"accent","style":{"typography":{"fontSize":"var:preset|font-size|sm","fontWeight":"600"}}} --><p class="has-accent-color has-text-color"><a href="#contacto" style="color:inherit;text-decoration:none">Saber más →</a></p><!-- /wp:paragraph -->
+				</div>
+				<!-- /wp:group -->
+			</div>
+			<!-- /wp:group -->
+		</div>
+		<!-- /wp:column -->
+
+		<!-- wp:column -->
+		<div class="wp-block-column">
+			<!-- wp:group {"className":"service-card","style":{"color":{"background":"var:preset|color|base"},"border":{"radius":"12px","color":"rgba(10,38,80,0.08)","width":"1px"},"shadow":"var:preset|shadow|soft"},"layout":{"type":"flex","orientation":"vertical"}} -->
+			<div class="wp-block-group service-card" style="background:var(--wp--preset--color--base);border-radius:12px;border:1px solid rgba(10,38,80,0.08);box-shadow:var(--wp--preset--shadow--soft);overflow:hidden">
+				<!-- wp:group {"className":"service-card-image","style":{"color":{"background":"var:preset|color|surface"},"spacing":{"padding":{"top":"var:preset|spacing|60","bottom":"var:preset|spacing|60"}}}} -->
+				<div class="wp-block-group service-card-image" style="background:var(--wp--preset--color--surface);padding:var(--wp--preset--spacing--60) 0">
+					<!-- wp:paragraph {"align":"center","style":{"typography":{"fontSize":"2.5rem"}}} --><p class="has-text-align-center" style="font-size:2.5rem;margin:0;line-height:1">🤖</p><!-- /wp:paragraph -->
+				</div>
+				<!-- /wp:group -->
+				<!-- wp:group {"style":{"spacing":{"padding":{"top":"var:preset|spacing|50","bottom":"var:preset|spacing|50","left":"var:preset|spacing|50","right":"var:preset|spacing|50"}}},"layout":{"type":"flex","orientation":"vertical","rowGap":"var:preset|spacing|30"}} -->
+				<div class="wp-block-group" style="padding:var(--wp--preset--spacing--50)">
+					<!-- wp:heading {"level":3,"textColor":"primary","style":{"typography":{"fontSize":"var:preset|font-size|md","fontWeight":"700"}}} --><h3 class="wp-block-heading has-primary-color has-text-color">✏️ Nombre del Servicio 5</h3><!-- /wp:heading -->
+					<!-- wp:paragraph {"textColor":"muted","style":{"typography":{"fontSize":"var:preset|font-size|sm","lineHeight":"1.6"}}} --><p class="has-muted-color has-text-color">Aquí va la descripción breve de este servicio. Explica el beneficio concreto que obtiene el cliente.</p><!-- /wp:paragraph -->
+					<!-- wp:paragraph {"textColor":"accent","style":{"typography":{"fontSize":"var:preset|font-size|sm","fontWeight":"600"}}} --><p class="has-accent-color has-text-color"><a href="#contacto" style="color:inherit;text-decoration:none">Saber más →</a></p><!-- /wp:paragraph -->
+				</div>
+				<!-- /wp:group -->
+			</div>
+			<!-- /wp:group -->
+		</div>
+		<!-- /wp:column -->
+
+		<!-- wp:column -->
+		<div class="wp-block-column">
+			<!-- wp:group {"className":"service-card","style":{"color":{"background":"var:preset|color|base"},"border":{"radius":"12px","color":"rgba(10,38,80,0.08)","width":"1px"},"shadow":"var:preset|shadow|soft"},"layout":{"type":"flex","orientation":"vertical"}} -->
+			<div class="wp-block-group service-card" style="background:var(--wp--preset--color--base);border-radius:12px;border:1px solid rgba(10,38,80,0.08);box-shadow:var(--wp--preset--shadow--soft);overflow:hidden">
+				<!-- wp:group {"className":"service-card-image","style":{"color":{"background":"var:preset|color|surface"},"spacing":{"padding":{"top":"var:preset|spacing|60","bottom":"var:preset|spacing|60"}}}} -->
+				<div class="wp-block-group service-card-image" style="background:var(--wp--preset--color--surface);padding:var(--wp--preset--spacing--60) 0">
+					<!-- wp:paragraph {"align":"center","style":{"typography":{"fontSize":"2.5rem"}}} --><p class="has-text-align-center" style="font-size:2.5rem;margin:0;line-height:1">⚙️</p><!-- /wp:paragraph -->
+				</div>
+				<!-- /wp:group -->
+				<!-- wp:group {"style":{"spacing":{"padding":{"top":"var:preset|spacing|50","bottom":"var:preset|spacing|50","left":"var:preset|spacing|50","right":"var:preset|spacing|50"}}},"layout":{"type":"flex","orientation":"vertical","rowGap":"var:preset|spacing|30"}} -->
+				<div class="wp-block-group" style="padding:var(--wp--preset--spacing--50)">
+					<!-- wp:heading {"level":3,"textColor":"primary","style":{"typography":{"fontSize":"var:preset|font-size|md","fontWeight":"700"}}} --><h3 class="wp-block-heading has-primary-color has-text-color">✏️ Nombre del Servicio 6</h3><!-- /wp:heading -->
+					<!-- wp:paragraph {"textColor":"muted","style":{"typography":{"fontSize":"var:preset|font-size|sm","lineHeight":"1.6"}}} --><p class="has-muted-color has-text-color">Aquí va la descripción breve de este servicio. Explica el beneficio concreto que obtiene el cliente.</p><!-- /wp:paragraph -->
+					<!-- wp:paragraph {"textColor":"accent","style":{"typography":{"fontSize":"var:preset|font-size|sm","fontWeight":"600"}}} --><p class="has-accent-color has-text-color"><a href="#contacto" style="color:inherit;text-decoration:none">Saber más →</a></p><!-- /wp:paragraph -->
+				</div>
+				<!-- /wp:group -->
+			</div>
+			<!-- /wp:group -->
+		</div>
+		<!-- /wp:column -->
+
+	</div>
+	<!-- /wp:columns -->
 
 </section>
 <!-- /wp:group -->

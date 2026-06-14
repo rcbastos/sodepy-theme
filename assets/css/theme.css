@@ -82,77 +82,32 @@ a { transition: color 0.2s ease; }
 }
 
 /* =========================================================
-   HERO SECTION
+   HERO SECTION — diseño de dos columnas
    ========================================================= */
 .hero-section {
-	position: relative;
 	overflow: hidden;
-	min-height: 100vh;
+}
+
+.hero-label {
+	display: inline-block;
+}
+
+.hero-image-box {
+	aspect-ratio: 4 / 3;
 	display: flex;
 	flex-direction: column;
-}
-
-.hero-bg-video {
-	position: absolute;
-	inset: 0;
-	width: 100%;
-	height: 100%;
-	object-fit: cover;
-	z-index: 0;
-	opacity: 0;
-	transition: opacity 0.6s ease;
-}
-
-.hero-overlay {
-	position: absolute;
-	inset: 0;
-	background: linear-gradient(135deg, rgba(10, 38, 80, 0.75) 0%, rgba(23, 110, 181, 0.35) 100%);
-	z-index: 1;
-	pointer-events: none;
-}
-
-.hero-content {
-	position: relative;
-	z-index: 2;
-	display: flex;
 	align-items: center;
-	min-height: 100vh;
+	justify-content: center;
+	text-align: center;
 }
 
-/* Indicador de scroll */
-.hero-scroll-indicator {
-	position: absolute;
-	bottom: 2rem;
-	left: 50%;
-	transform: translateX(-50%);
-	z-index: 3;
-}
-
-.hero-scroll-dot {
-	display: block;
-	width: 28px;
-	height: 44px;
-	border: 2px solid rgba(255, 255, 255, 0.5);
-	border-radius: 14px;
-	position: relative;
-}
-
-.hero-scroll-dot::before {
-	content: '';
-	position: absolute;
-	top: 6px;
-	left: 50%;
-	transform: translateX(-50%);
-	width: 4px;
-	height: 8px;
-	background: rgba(255, 255, 255, 0.8);
-	border-radius: 2px;
-	animation: scroll-dot 1.8s ease-in-out infinite;
-}
-
-@keyframes scroll-dot {
-	0%, 100% { top: 6px; opacity: 1; }
-	80%       { top: 18px; opacity: 0; }
+@media (max-width: 781px) {
+	.hero-section .wp-block-columns {
+		flex-direction: column;
+	}
+	.hero-section .wp-block-column:last-child {
+		display: none; /* ocultar placeholder en móvil si no hay imagen real */
+	}
 }
 
 /* =========================================================
@@ -177,13 +132,51 @@ a { transition: color 0.2s ease; }
 }
 
 /* =========================================================
+   PROBLEM SECTION
+   ========================================================= */
+.problem-card {
+	transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.problem-card:hover {
+	transform: translateY(-4px);
+	box-shadow: var(--wp--preset--shadow--medium) !important;
+}
+
+/* =========================================================
+   PROCESS SECTION
+   ========================================================= */
+.process-step {
+	position: relative;
+}
+
+.process-number {
+	user-select: none;
+}
+
+/* =========================================================
+   WHY US SECTION
+   ========================================================= */
+.why-us-card {
+	transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.why-us-card:hover {
+	transform: translateY(-3px);
+	box-shadow: var(--wp--preset--shadow--medium) !important;
+}
+
+/* =========================================================
    ANIMACIONES DE ENTRADA
    ========================================================= */
 .service-card,
 .portfolio-item,
 .testimonial-card,
 .stat-item,
-.section-header {
+.section-header,
+.problem-card,
+.process-step,
+.why-us-card {
 	opacity: 0;
 	transform: translateY(24px);
 	transition:
@@ -195,7 +188,10 @@ a { transition: color 0.2s ease; }
 .portfolio-item.is-visible,
 .testimonial-card.is-visible,
 .stat-item.is-visible,
-.section-header.is-visible {
+.section-header.is-visible,
+.problem-card.is-visible,
+.process-step.is-visible,
+.why-us-card.is-visible {
 	opacity: 1;
 	transform: translateY(0);
 }
@@ -205,7 +201,10 @@ a { transition: color 0.2s ease; }
 	.portfolio-item,
 	.testimonial-card,
 	.stat-item,
-	.section-header {
+	.section-header,
+	.problem-card,
+	.process-step,
+	.why-us-card {
 		opacity: 1;
 		transform: none;
 		transition: none;
