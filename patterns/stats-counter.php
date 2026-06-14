@@ -3,7 +3,7 @@
  * Title: Contador de Estadísticas
  * Slug: sodepy/stats-counter
  * Categories: sodepy
- * Description: Banda de números/estadísticas animados con fondo degradado de marca.
+ * Description: Banda de números/estadísticas con fondo degradado de marca.
  * Keywords: estadísticas, números, contador, logros
  * Inserter: true
  */
@@ -16,10 +16,10 @@
 
 		<?php
 		$stats = [
-			[ 'number' => '150+', 'label' => __( 'Proyectos entregados', 'sodepy' ) ],
-			[ 'number' => '98%',  'label' => __( 'Clientes satisfechos', 'sodepy' ) ],
-			[ 'number' => '8+',   'label' => __( 'Años de experiencia', 'sodepy' ) ],
-			[ 'number' => '24h',  'label' => __( 'Soporte disponible', 'sodepy' ) ],
+			[ 'number' => '00+',  'label' => 'Aquí va tu estadística 1' ],
+			[ 'number' => '00%',  'label' => 'Aquí va tu estadística 2' ],
+			[ 'number' => '00+',  'label' => 'Aquí va tu estadística 3' ],
+			[ 'number' => '00h',  'label' => 'Aquí va tu estadística 4' ],
 		];
 		foreach ( $stats as $stat ) : ?>
 
@@ -28,7 +28,7 @@
 			<!-- wp:heading {"level":3,"textColor":"highlight","className":"stat-number","style":{"typography":{"fontSize":"var:preset|font-size|3xl","fontWeight":"800","lineHeight":"1"}}} -->
 			<h3 class="wp-block-heading has-highlight-color has-text-color stat-number"><?php echo esc_html( $stat['number'] ); ?></h3>
 			<!-- /wp:heading -->
-			<!-- wp:paragraph {"textColor":"base","style":{"typography":{"fontSize":"var:preset|font-size|sm","fontWeight":"500"},"color":{"text":"rgba(244,246,248,0.8)"}}} -->
+			<!-- wp:paragraph {"style":{"color":{"text":"rgba(244,246,248,0.8)"},"typography":{"fontSize":"var:preset|font-size|sm"}}} -->
 			<p style="color:rgba(244,246,248,0.8);font-size:var(--wp--preset--font-size--sm)"><?php echo esc_html( $stat['label'] ); ?></p>
 			<!-- /wp:paragraph -->
 		</div>

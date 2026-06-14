@@ -3,8 +3,8 @@
  * Title: Sección de Servicios
  * Slug: sodepy/services-section
  * Categories: sodepy, services
- * Description: Grid de servicios con ícono, título y descripción. Ancla al menú #servicios.
- * Keywords: servicios, grid, cards
+ * Description: Grid de servicios/productos con ícono, título y descripción.
+ * Keywords: servicios, grid, cards, productos
  * Inserter: true
  */
 ?>
@@ -14,13 +14,13 @@
 	<!-- wp:group {"className":"section-header","style":{"spacing":{"margin":{"bottom":"var:preset|spacing|80"}},"textAlign":"center"},"layout":{"type":"constrained","contentSize":"600px"}} -->
 	<div class="wp-block-group section-header" style="text-align:center">
 		<!-- wp:paragraph {"textColor":"highlight","style":{"typography":{"fontSize":"var:preset|font-size|xs","fontWeight":"700","textTransform":"uppercase","letterSpacing":"0.15em"}}} -->
-		<p class="has-highlight-color has-text-color"><?php esc_html_e( 'Lo que hacemos', 'sodepy' ); ?></p>
+		<p class="has-highlight-color has-text-color">✏️ Aquí va la etiqueta de sección (ej: Lo que hacemos)</p>
 		<!-- /wp:paragraph -->
 		<!-- wp:heading {"level":2,"style":{"typography":{"fontSize":"var:preset|font-size|2xl","fontWeight":"700"}}} -->
-		<h2 class="wp-block-heading"><?php esc_html_e( 'Servicios diseñados para hacer crecer tu pyme', 'sodepy' ); ?></h2>
+		<h2 class="wp-block-heading">Aquí va el título de tu sección de servicios</h2>
 		<!-- /wp:heading -->
 		<!-- wp:paragraph {"textColor":"muted"} -->
-		<p class="has-muted-color has-text-color"><?php esc_html_e( 'Desde la digitalización hasta la automatización, cubrimos cada paso de la transformación digital.', 'sodepy' ); ?></p>
+		<p class="has-muted-color has-text-color">Aquí va una breve descripción introductoria de tus servicios o productos. Una o dos frases son suficientes.</p>
 		<!-- /wp:paragraph -->
 	</div>
 	<!-- /wp:group -->
@@ -30,42 +30,12 @@
 
 		<?php
 		$services = [
-			[
-				'icon'  => '🌐',
-				'title' => __( 'Desarrollo Web', 'sodepy' ),
-				'desc'  => __( 'Páginas web y tiendas online rápidas, seguras y optimizadas para posicionarse en Google.', 'sodepy' ),
-				'href'  => '#contacto',
-			],
-			[
-				'icon'  => '📈',
-				'title' => __( 'Marketing Digital', 'sodepy' ),
-				'desc'  => __( 'Estrategias de SEO, SEM y redes sociales que generan clientes reales para tu negocio.', 'sodepy' ),
-				'href'  => '#contacto',
-			],
-			[
-				'icon'  => '⚙️',
-				'title' => __( 'Automatización', 'sodepy' ),
-				'desc'  => __( 'Automatiza procesos repetitivos, integra sistemas y ahorra tiempo valioso cada día.', 'sodepy' ),
-				'href'  => '#contacto',
-			],
-			[
-				'icon'  => '🛒',
-				'title' => __( 'E-commerce', 'sodepy' ),
-				'desc'  => __( 'Tiendas WooCommerce optimizadas para convertir visitantes en clientes y maximizar ventas.', 'sodepy' ),
-				'href'  => '#contacto',
-			],
-			[
-				'icon'  => '📊',
-				'title' => __( 'Analítica y Datos', 'sodepy' ),
-				'desc'  => __( 'Dashboards y reportes que te dan visibilidad total sobre el rendimiento de tu negocio.', 'sodepy' ),
-				'href'  => '#contacto',
-			],
-			[
-				'icon'  => '🔒',
-				'title' => __( 'Ciberseguridad', 'sodepy' ),
-				'desc'  => __( 'Protege tu negocio digital con soluciones de seguridad adaptadas a pymes.', 'sodepy' ),
-				'href'  => '#contacto',
-			],
+			[ 'icon' => '⭐', 'title' => 'Nombre del Servicio 1', 'desc' => 'Aquí va la descripción de este servicio. Explica qué incluye y qué beneficio obtiene el cliente.' ],
+			[ 'icon' => '🚀', 'title' => 'Nombre del Servicio 2', 'desc' => 'Aquí va la descripción de este servicio. Explica qué incluye y qué beneficio obtiene el cliente.' ],
+			[ 'icon' => '💡', 'title' => 'Nombre del Servicio 3', 'desc' => 'Aquí va la descripción de este servicio. Explica qué incluye y qué beneficio obtiene el cliente.' ],
+			[ 'icon' => '🎯', 'title' => 'Nombre del Servicio 4', 'desc' => 'Aquí va la descripción de este servicio. Explica qué incluye y qué beneficio obtiene el cliente.' ],
+			[ 'icon' => '📊', 'title' => 'Nombre del Servicio 5', 'desc' => 'Aquí va la descripción de este servicio. Explica qué incluye y qué beneficio obtiene el cliente.' ],
+			[ 'icon' => '🔧', 'title' => 'Nombre del Servicio 6', 'desc' => 'Aquí va la descripción de este servicio. Explica qué incluye y qué beneficio obtiene el cliente.' ],
 		];
 		foreach ( $services as $service ) : ?>
 
@@ -81,7 +51,7 @@
 			<p class="has-muted-color has-text-color"><?php echo esc_html( $service['desc'] ); ?></p>
 			<!-- /wp:paragraph -->
 			<!-- wp:paragraph -->
-			<p><a href="<?php echo esc_url( $service['href'] ); ?>" class="service-card-link"><?php esc_html_e( 'Saber más →', 'sodepy' ); ?></a></p>
+			<p><a href="#contacto" class="service-card-link">Saber más →</a></p>
 			<!-- /wp:paragraph -->
 		</div>
 		<!-- /wp:group -->

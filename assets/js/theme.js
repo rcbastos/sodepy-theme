@@ -164,10 +164,18 @@
 	}
 
 	/* =========================================================
-	   6. AÑO DINÁMICO EN EL FOOTER
+	   6. AÑO Y NOMBRE DEL SITIO EN EL FOOTER
 	   ========================================================= */
 	document.querySelectorAll( '.footer-year' ).forEach( ( el ) => {
 		el.textContent = new Date().getFullYear();
+	} );
+
+	document.querySelectorAll( '.site-name-footer' ).forEach( ( el ) => {
+		const siteTitle = document.querySelector( '.wp-site-blocks title' )?.textContent
+			|| document.title.split( ' – ' )[ 0 ]
+			|| document.title.split( ' — ' )[ 0 ]
+			|| '';
+		if ( siteTitle ) el.textContent = siteTitle;
 	} );
 
 	/* =========================================================

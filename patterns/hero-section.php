@@ -3,7 +3,7 @@
  * Title: Sección Hero Principal
  * Slug: sodepy/hero-section
  * Categories: sodepy, featured
- * Description: Hero de pantalla completa con video de fondo, título, subtítulo y botones CTA.
+ * Description: Hero de pantalla completa con video o imagen de fondo, título, subtítulo y botones CTA.
  * Keywords: hero, portada, inicio, video
  * Block Types: core/cover
  * Inserter: true
@@ -16,7 +16,7 @@
 	<div class="wp-block-cover is-light hero-cover" style="min-height:100vh">
 		<span aria-hidden="true" class="wp-block-cover__background has-primary-background-color has-background-dim"></span>
 
-		<!-- VIDEO DE FONDO (el usuario reemplaza con su propio video) -->
+		<!-- 💡 INSTRUCCIÓN: Reemplaza el src="" con la URL de tu video .mp4 subido a la biblioteca de medios -->
 		<video
 			class="hero-bg-video"
 			autoplay
@@ -24,9 +24,9 @@
 			loop
 			playsinline
 			aria-hidden="true"
-			poster="<?php echo esc_url( get_template_directory_uri() . '/assets/images/hero-poster.jpg' ); ?>"
+			poster=""
 		>
-			<source src="" type="video/mp4" data-src-placeholder="Reemplaza con la URL de tu video .mp4">
+			<source src="" type="video/mp4">
 		</video>
 
 		<div class="wp-block-cover__inner-container">
@@ -38,15 +38,15 @@
 				<div class="wp-block-group" style="max-width:720px">
 
 					<!-- wp:paragraph {"textColor":"highlight","style":{"typography":{"fontSize":"var:preset|font-size|sm","fontWeight":"700","textTransform":"uppercase","letterSpacing":"0.15em"}}} -->
-					<p class="has-highlight-color has-text-color"><?php esc_html_e( 'Soluciones y Desarrollos para Pymes', 'sodepy' ); ?></p>
+					<p class="has-highlight-color has-text-color">✏️ Aquí va tu nicho o especialidad</p>
 					<!-- /wp:paragraph -->
 
 					<!-- wp:heading {"level":1,"textColor":"base","style":{"typography":{"fontSize":"var:preset|font-size|hero","fontWeight":"800","lineHeight":"1.1"}}} -->
-					<h1 class="wp-block-heading has-base-color has-text-color"><?php esc_html_e( 'Digitalizamos tu negocio para vender más y controlar mejor', 'sodepy' ); ?></h1>
+					<h1 class="wp-block-heading has-base-color has-text-color">Aquí va el título principal de tu página</h1>
 					<!-- /wp:heading -->
 
-					<!-- wp:paragraph {"textColor":"base","style":{"typography":{"fontSize":"var:preset|font-size|lg"},"color":{"text":"rgba(244,246,248,0.85)"}}} -->
-					<p style="color:rgba(244,246,248,0.85)"><?php esc_html_e( 'Somos expertos en transformación digital para pequeñas y medianas empresas. Tecnología real, resultados medibles.', 'sodepy' ); ?></p>
+					<!-- wp:paragraph {"style":{"color":{"text":"rgba(244,246,248,0.85)"},"typography":{"fontSize":"var:preset|font-size|lg"}}} -->
+					<p style="color:rgba(244,246,248,0.85)">Aquí va la descripción de tu propuesta de valor. Explica brevemente qué haces, para quién y cómo ayudas a tus clientes.</p>
 					<!-- /wp:paragraph -->
 
 					<!-- wp:buttons {"style":{"spacing":{"blockGap":"var:preset|spacing|40","margin":{"top":"var:preset|spacing|60"}}}} -->
@@ -54,7 +54,7 @@
 						<!-- wp:button {"backgroundColor":"highlight","textColor":"base","style":{"border":{"radius":"6px"},"spacing":{"padding":{"top":"1rem","bottom":"1rem","left":"2rem","right":"2rem"}}},"fontSize":"md"} -->
 						<div class="wp-block-button">
 							<a class="wp-block-button__link has-highlight-background-color has-base-color has-text-color has-background wp-element-button" href="#servicios" style="border-radius:6px">
-								<?php esc_html_e( 'Ver servicios', 'sodepy' ); ?>
+								Aquí va tu CTA principal
 							</a>
 						</div>
 						<!-- /wp:button -->
@@ -62,7 +62,7 @@
 						<!-- wp:button {"className":"is-style-outline","textColor":"base","style":{"border":{"radius":"6px","color":"rgba(255,255,255,0.6)","width":"2px"},"spacing":{"padding":{"top":"1rem","bottom":"1rem","left":"2rem","right":"2rem"}}},"fontSize":"md"} -->
 						<div class="wp-block-button is-style-outline">
 							<a class="wp-block-button__link has-base-color has-text-color wp-element-button" href="#contacto" style="border-radius:6px;border:2px solid rgba(255,255,255,0.6)">
-								<?php esc_html_e( 'Solicitar presupuesto', 'sodepy' ); ?>
+								Aquí va tu CTA secundario
 							</a>
 						</div>
 						<!-- /wp:button -->
@@ -77,7 +77,6 @@
 
 		</div>
 
-		<!-- Indicador de scroll -->
 		<div class="hero-scroll-indicator" aria-hidden="true">
 			<span class="hero-scroll-dot"></span>
 		</div>
