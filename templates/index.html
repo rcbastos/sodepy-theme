@@ -1,0 +1,39 @@
+<!-- wp:template-part {"slug":"header","tagName":"header","theme":"sodepy"} /-->
+
+<!-- wp:group {"tagName":"main","layout":{"type":"constrained"}} -->
+<main class="wp-block-group">
+	<!-- wp:query {"queryId":1,"query":{"perPage":9,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":true}} -->
+	<div class="wp-block-query">
+		<!-- wp:post-template {"layout":{"type":"grid","columnCount":3}} -->
+			<!-- wp:group {"style":{"spacing":{"padding":{"top":"0","bottom":"0"}}},"className":"post-card","layout":{"type":"flex","orientation":"vertical"}} -->
+			<div class="wp-block-group post-card">
+				<!-- wp:post-featured-image {"isLink":true,"aspectRatio":"16/9","style":{"border":{"radius":"8px"}}} /-->
+				<!-- wp:group {"style":{"spacing":{"padding":{"top":"var:preset|spacing|50","bottom":"var:preset|spacing|50"}}},"layout":{"type":"flex","orientation":"vertical","rowGap":"var:preset|spacing|30"}} -->
+				<div class="wp-block-group">
+					<!-- wp:post-terms {"term":"category","style":{"typography":{"fontSize":"var:preset|font-size|xs","fontWeight":"600","textTransform":"uppercase","letterSpacing":"0.08em"}},"textColor":"accent"} /-->
+					<!-- wp:post-title {"isLink":true,"style":{"typography":{"fontSize":"var:preset|font-size|lg","fontWeight":"700"}}} /-->
+					<!-- wp:post-excerpt {"numberOfWords":20} /-->
+					<!-- wp:post-date {"style":{"typography":{"fontSize":"var:preset|font-size|xs"}},"textColor":"muted"} /-->
+				</div>
+				<!-- /wp:group -->
+			</div>
+			<!-- /wp:group -->
+		<!-- /wp:post-template -->
+
+		<!-- wp:query-no-results -->
+		<!-- wp:paragraph -->
+		<p>No se encontraron publicaciones.</p>
+		<!-- /wp:paragraph -->
+		<!-- /wp:query-no-results -->
+
+		<!-- wp:query-pagination {"layout":{"type":"flex","justifyContent":"center"}} -->
+		<!-- wp:query-pagination-previous /-->
+		<!-- wp:query-pagination-numbers /-->
+		<!-- wp:query-pagination-next /-->
+		<!-- /wp:query-pagination -->
+	</div>
+	<!-- /wp:query -->
+</main>
+<!-- /wp:group -->
+
+<!-- wp:template-part {"slug":"footer","tagName":"footer","theme":"sodepy"} /-->

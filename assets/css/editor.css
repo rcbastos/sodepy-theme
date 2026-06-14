@@ -1,0 +1,36 @@
+/*
+ * Sodepy — Editor Styles
+ * Se carga en el editor de bloques para que el diseño se vea igual que en el front.
+ */
+
+.editor-styles-wrapper {
+	font-family: system-ui, -apple-system, sans-serif;
+	-webkit-font-smoothing: antialiased;
+}
+
+.editor-styles-wrapper .wp-block {
+	max-width: 100%;
+}
+
+/* Mejorar visibilidad de secciones hero en el editor */
+.editor-styles-wrapper .hero-section,
+.editor-styles-wrapper .video-autoplay-section {
+	min-height: 60vh;
+}
+
+/* Asegurar que las tarjetas se vean correctas */
+.editor-styles-wrapper .service-card,
+.editor-styles-wrapper .testimonial-card {
+	opacity: 1;
+	transform: none;
+}
+
+/* Inputs del formulario en el editor */
+.editor-styles-wrapper input[type="text"],
+.editor-styles-wrapper input[type="email"],
+.editor-styles-wrapper textarea {
+	padding: 0.75rem 1rem;
+	border: 1px solid #e2e8f0;
+	border-radius: 6px;
+	width: 100%;
+}

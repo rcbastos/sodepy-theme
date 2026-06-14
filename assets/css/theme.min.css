@@ -1,0 +1,442 @@
+/*
+ * Sodepy Theme — Estilos complementarios
+ * Solo lo que theme.json no puede cubrir.
+ * Sin frameworks. Sin variables mágicas. CSS puro.
+ */
+
+/* =========================================================
+   RESET / BASE
+   ========================================================= */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+	scroll-behavior: smooth;
+	-webkit-text-size-adjust: 100%;
+}
+
+body {
+	margin: 0;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	overflow-x: hidden;
+}
+
+img, video, svg {
+	max-width: 100%;
+	height: auto;
+	display: block;
+}
+
+a { transition: color 0.2s ease; }
+
+/* =========================================================
+   HEADER STICKY
+   ========================================================= */
+.site-header {
+	position: sticky;
+	top: 0;
+	z-index: 1000;
+	transition: background 0.3s ease, box-shadow 0.3s ease;
+	backdrop-filter: blur(0px);
+}
+
+.site-header.is-scrolled {
+	background: rgba(10, 38, 80, 0.97) !important;
+	box-shadow: 0 2px 24px rgba(10, 38, 80, 0.25);
+	backdrop-filter: blur(10px);
+}
+
+.header-inner {
+	max-width: 1280px;
+	margin-inline: auto;
+	padding-inline: clamp(1rem, 5vw, 2.5rem);
+}
+
+/* =========================================================
+   NAVEGACIÓN
+   ========================================================= */
+.site-nav .wp-block-navigation-item__content {
+	color: rgba(244, 246, 248, 0.85) !important;
+	transition: color 0.2s ease;
+}
+
+.site-nav .wp-block-navigation-item__content:hover,
+.site-nav .wp-block-navigation-item.current-menu-item .wp-block-navigation-item__content {
+	color: #F28D0A !important;
+}
+
+.site-nav .wp-block-navigation-item.current-menu-item .wp-block-navigation-item__content {
+	font-weight: 600;
+}
+
+/* Botón del header */
+.header-btn a {
+	font-size: 0.875rem;
+	font-weight: 600;
+}
+
+/* Menú hamburguesa */
+.wp-block-navigation__responsive-container-open,
+.wp-block-navigation__responsive-container-close {
+	color: white !important;
+}
+
+/* =========================================================
+   HERO SECTION
+   ========================================================= */
+.hero-section {
+	position: relative;
+}
+
+.hero-bg-video {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	z-index: 0;
+}
+
+.hero-cover .wp-block-cover__background {
+	z-index: 1;
+}
+
+.hero-cover .wp-block-cover__inner-container {
+	position: relative;
+	z-index: 2;
+}
+
+/* Indicador de scroll */
+.hero-scroll-indicator {
+	position: absolute;
+	bottom: 2rem;
+	left: 50%;
+	transform: translateX(-50%);
+	z-index: 3;
+}
+
+.hero-scroll-dot {
+	display: block;
+	width: 28px;
+	height: 44px;
+	border: 2px solid rgba(255, 255, 255, 0.5);
+	border-radius: 14px;
+	position: relative;
+}
+
+.hero-scroll-dot::before {
+	content: '';
+	position: absolute;
+	top: 6px;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 4px;
+	height: 8px;
+	background: rgba(255, 255, 255, 0.8);
+	border-radius: 2px;
+	animation: scroll-dot 1.8s ease-in-out infinite;
+}
+
+@keyframes scroll-dot {
+	0%, 100% { top: 6px; opacity: 1; }
+	80%       { top: 18px; opacity: 0; }
+}
+
+/* =========================================================
+   VIDEO AUTOPLAY SECTION
+   ========================================================= */
+.video-autoplay-media {
+	will-change: opacity;
+}
+
+/* =========================================================
+   ANIMACIONES DE ENTRADA
+   ========================================================= */
+.service-card,
+.portfolio-item,
+.testimonial-card,
+.stat-item,
+.section-header {
+	opacity: 0;
+	transform: translateY(24px);
+	transition:
+		opacity 0.5s ease calc( var(--anim-delay, 0s) ),
+		transform 0.5s ease calc( var(--anim-delay, 0s) );
+}
+
+.service-card.is-visible,
+.portfolio-item.is-visible,
+.testimonial-card.is-visible,
+.stat-item.is-visible,
+.section-header.is-visible {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.service-card,
+	.portfolio-item,
+	.testimonial-card,
+	.stat-item,
+	.section-header {
+		opacity: 1;
+		transform: none;
+		transition: none;
+	}
+}
+
+/* =========================================================
+   SERVICE CARDS
+   ========================================================= */
+.service-card {
+	transition:
+		opacity 0.5s ease,
+		transform 0.5s ease,
+		box-shadow 0.25s ease;
+}
+
+.service-card:hover {
+	transform: translateY(-4px) !important;
+	box-shadow: var(--wp--preset--shadow--strong) !important;
+}
+
+.service-card-link {
+	color: var(--wp--preset--color--accent);
+	font-weight: 600;
+	font-size: var(--wp--preset--font-size--sm);
+	text-decoration: none;
+}
+
+.service-card-link:hover {
+	color: var(--wp--preset--color--highlight);
+}
+
+/* =========================================================
+   PORTFOLIO GRID + FILTROS
+   ========================================================= */
+.portfolio-filters {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+	justify-content: center;
+}
+
+.portfolio-filter-btn {
+	display: inline-block;
+	padding: 0.5rem 1.25rem;
+	border: 2px solid var(--wp--preset--color--surface);
+	border-radius: 100px;
+	background: transparent;
+	color: var(--wp--preset--color--muted);
+	font-size: var(--wp--preset--font-size--xs);
+	font-weight: 600;
+	cursor: pointer;
+	transition: all 0.2s ease;
+}
+
+.portfolio-filter-btn:hover,
+.portfolio-filter-btn.is-active {
+	border-color: var(--wp--preset--color--accent);
+	background: var(--wp--preset--color--accent);
+	color: white;
+}
+
+.portfolio-item {
+	cursor: pointer;
+}
+
+.portfolio-item:hover img {
+	transform: scale(1.03);
+	transition: transform 0.4s ease;
+}
+
+.portfolio-item img {
+	transition: transform 0.4s ease;
+}
+
+/* =========================================================
+   TESTIMONIOS
+   ========================================================= */
+.testimonial-card {
+	transition:
+		opacity 0.5s ease,
+		transform 0.5s ease,
+		box-shadow 0.25s ease;
+}
+
+.testimonial-card:hover {
+	transform: translateY(-4px) !important;
+}
+
+/* =========================================================
+   STATS SECTION
+   ========================================================= */
+.stats-section {
+	background: linear-gradient(135deg, #0A2650 0%, #173A7A 100%) !important;
+}
+
+/* =========================================================
+   CONTACT SECTION
+   ========================================================= */
+.contact-info a {
+	color: inherit;
+	text-decoration: none;
+}
+
+.contact-info a:hover {
+	color: var(--wp--preset--color--highlight);
+}
+
+/* CF7 / WPForms styling */
+.wpcf7-form .wpcf7-text,
+.wpcf7-form .wpcf7-textarea,
+.wpcf7-form .wpcf7-select,
+.wpforms-form input[type="text"],
+.wpforms-form input[type="email"],
+.wpforms-form input[type="tel"],
+.wpforms-form textarea,
+.wpforms-form select {
+	width: 100%;
+	padding: 0.75rem 1rem;
+	border: 1px solid #e2e8f0;
+	border-radius: 6px;
+	font-size: var(--wp--preset--font-size--sm);
+	background: white;
+	transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.wpcf7-form .wpcf7-text:focus,
+.wpcf7-form .wpcf7-textarea:focus,
+.wpforms-form input:focus,
+.wpforms-form textarea:focus {
+	outline: none;
+	border-color: var(--wp--preset--color--accent);
+	box-shadow: 0 0 0 3px rgba(23, 110, 181, 0.15);
+}
+
+.wpcf7-submit,
+.wpforms-submit {
+	background: var(--wp--preset--color--highlight) !important;
+	color: white !important;
+	border: none !important;
+	padding: 0.875rem 2rem !important;
+	border-radius: 6px !important;
+	font-weight: 600 !important;
+	cursor: pointer !important;
+	transition: background 0.2s ease !important;
+}
+
+.wpcf7-submit:hover,
+.wpforms-submit:hover {
+	background: var(--wp--preset--color--primary) !important;
+}
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+.site-footer a {
+	color: inherit;
+	text-decoration: none;
+	transition: color 0.2s ease;
+}
+
+.site-footer a:hover {
+	color: var(--wp--preset--color--highlight);
+}
+
+.footer-social a {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.25rem;
+	margin-inline-end: 0.75rem;
+	font-size: var(--wp--preset--font-size--sm);
+	color: rgba(244, 246, 248, 0.7);
+}
+
+.footer-social a:hover { color: var(--wp--preset--color--highlight); }
+
+/* =========================================================
+   WOOCOMMERCE
+   ========================================================= */
+.woocommerce-breadcrumb {
+	font-size: var(--wp--preset--font-size--xs);
+	color: var(--wp--preset--color--muted);
+	margin-bottom: var(--wp--preset--spacing--60);
+}
+
+.woocommerce-breadcrumb a {
+	color: var(--wp--preset--color--accent);
+}
+
+.price { color: var(--wp--preset--color--primary); }
+.price ins { text-decoration: none; }
+.price del { opacity: 0.6; }
+
+.button.alt,
+.woocommerce #respond input#submit,
+.woocommerce a.button,
+.woocommerce button.button,
+.woocommerce input.button {
+	background: var(--wp--preset--color--highlight) !important;
+	color: white !important;
+	border-radius: 6px !important;
+	font-weight: 600 !important;
+	transition: background 0.2s ease !important;
+}
+
+.button.alt:hover,
+.woocommerce a.button:hover,
+.woocommerce button.button:hover {
+	background: var(--wp--preset--color--primary) !important;
+	color: white !important;
+}
+
+/* =========================================================
+   SECTION HELPER — espaciados y layout
+   ========================================================= */
+.section-header { max-width: 600px; margin-inline: auto; }
+
+/* Asegurar que all sections ocupen al menos el ancho completo */
+.hero-section,
+.video-autoplay-section,
+.stats-section,
+.cta-section {
+	width: 100%;
+}
+
+/* =========================================================
+   ACCESIBILIDAD
+   ========================================================= */
+:focus-visible {
+	outline: 3px solid var(--wp--preset--color--highlight);
+	outline-offset: 2px;
+	border-radius: 2px;
+}
+
+.screen-reader-text {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border: 0;
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+@media (max-width: 768px) {
+	.header-cta { display: none; }
+	.stats-grid { grid-template-columns: repeat(2, 1fr); }
+	.services-grid,
+	.portfolio-query-grid .wp-block-post-template,
+	.testimonials-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 480px) {
+	.stats-grid { grid-template-columns: repeat(2, 1fr); }
+	.hero-cover { min-height: 100svh; }
+}

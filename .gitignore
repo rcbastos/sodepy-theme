@@ -1,0 +1,10 @@
+# Editor y OS
+.DS_Store
+Thumbs.db
+*.log
+.vscode/
+.idea/
+
+# Archivos de desarrollo (no van al servidor)
+node_modules/
+*.map

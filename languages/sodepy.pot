@@ -1,0 +1,231 @@
+# Copyright (C) 2024 Sodepy
+# This file is distributed under the GNU General Public License v2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Sodepy 1.0.0\n"
+"Report-Msgid-Bugs-To: hola@sodepy.com\n"
+"POT-Creation-Date: 2024-01-01 00:00+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"X-Generator: WP-CLI 2.x\n"
+"X-Domain: sodepy\n"
+
+#. Theme Name of the theme
+msgid "Sodepy"
+msgstr ""
+
+#. Description of the theme
+msgid "Tema profesional para agencia de servicios."
+msgstr ""
+
+#: inc/setup.php
+msgid "Menú principal"
+msgstr ""
+
+#: inc/setup.php
+msgid "Menú pie de página"
+msgstr ""
+
+#: inc/setup.php
+msgid "Menú secundario / legal"
+msgstr ""
+
+#: inc/setup.php
+msgid "Portfolio"
+msgstr ""
+
+#: inc/setup.php
+msgid "Proyecto"
+msgstr ""
+
+#: inc/setup.php
+msgid "Añadir proyecto"
+msgstr ""
+
+#: inc/setup.php
+msgid "Categorías de portfolio"
+msgstr ""
+
+#: inc/schema.php
+msgid "Inicio"
+msgstr ""
+
+#: patterns/hero-section.php
+msgid "Soluciones y Desarrollos para Pymes"
+msgstr ""
+
+#: patterns/hero-section.php
+msgid "Digitalizamos tu negocio para vender más y controlar mejor"
+msgstr ""
+
+#: patterns/hero-section.php
+msgid "Ver servicios"
+msgstr ""
+
+#: patterns/hero-section.php
+msgid "Solicitar presupuesto"
+msgstr ""
+
+#: patterns/video-autoplay-section.php
+msgid "Cómo trabajamos"
+msgstr ""
+
+#: patterns/video-autoplay-section.php
+msgid "Tecnología que transforma negocios reales"
+msgstr ""
+
+#: patterns/video-autoplay-section.php
+msgid "Conocer más"
+msgstr ""
+
+#: patterns/services-section.php
+msgid "Lo que hacemos"
+msgstr ""
+
+#: patterns/services-section.php
+msgid "Servicios diseñados para hacer crecer tu pyme"
+msgstr ""
+
+#: patterns/services-section.php
+msgid "Desarrollo Web"
+msgstr ""
+
+#: patterns/services-section.php
+msgid "Marketing Digital"
+msgstr ""
+
+#: patterns/services-section.php
+msgid "Automatización"
+msgstr ""
+
+#: patterns/services-section.php
+msgid "E-commerce"
+msgstr ""
+
+#: patterns/services-section.php
+msgid "Analítica y Datos"
+msgstr ""
+
+#: patterns/services-section.php
+msgid "Ciberseguridad"
+msgstr ""
+
+#: patterns/portfolio-grid.php
+msgid "Nuestro trabajo"
+msgstr ""
+
+#: patterns/portfolio-grid.php
+msgid "Proyectos que hablan por sí solos"
+msgstr ""
+
+#: patterns/portfolio-grid.php
+msgid "Ver todos los proyectos →"
+msgstr ""
+
+#: patterns/stats-counter.php
+msgid "Proyectos entregados"
+msgstr ""
+
+#: patterns/stats-counter.php
+msgid "Clientes satisfechos"
+msgstr ""
+
+#: patterns/stats-counter.php
+msgid "Años de experiencia"
+msgstr ""
+
+#: patterns/stats-counter.php
+msgid "Soporte disponible"
+msgstr ""
+
+#: patterns/testimonials-section.php
+msgid "Lo que dicen nuestros clientes"
+msgstr ""
+
+#: patterns/testimonials-section.php
+msgid "Historias de éxito reales"
+msgstr ""
+
+#: patterns/cta-banner.php
+msgid "¿Listo para digitalizar tu negocio?"
+msgstr ""
+
+#: patterns/cta-banner.php
+msgid "Solicitar presupuesto gratuito"
+msgstr ""
+
+#: patterns/cta-banner.php
+msgid "Llamar ahora"
+msgstr ""
+
+#: patterns/contact-section.php
+msgid "Hablemos"
+msgstr ""
+
+#: patterns/contact-section.php
+msgid "Cuéntanos tu proyecto"
+msgstr ""
+
+#: patterns/contact-section.php
+msgid "Envíanos un mensaje"
+msgstr ""
+
+#: templates/index.html
+msgid "No se encontraron publicaciones."
+msgstr ""
+
+#: templates/archive-portfolio.html
+msgid "No hay proyectos disponibles."
+msgstr ""
+
+#: templates/search.html
+msgid "No se encontraron resultados para tu búsqueda."
+msgstr ""
+
+#: templates/404.html
+msgid "Página no encontrada"
+msgstr ""
+
+#: templates/404.html
+msgid "Lo sentimos, la página que buscas no existe o fue movida."
+msgstr ""
+
+#: templates/404.html
+msgid "Volver al inicio"
+msgstr ""
+
+#: templates/woocommerce/archive-product.html
+msgid "No hay productos disponibles."
+msgstr ""
+
+#: templates/woocommerce/single-product.html
+msgid "Productos relacionados"
+msgstr ""
+
+#: templates/woocommerce/cart.html
+msgid "Tu carrito"
+msgstr ""
+
+#: parts/footer.html
+msgid "Servicios"
+msgstr ""
+
+#: parts/footer.html
+msgid "Empresa"
+msgstr ""
+
+#: parts/footer.html
+msgid "Contacto"
+msgstr ""
+
+#: parts/footer.html
+msgid "Todos los derechos reservados."
+msgstr ""
+
+#: parts/header.html
+msgid "Contactar"
+msgstr ""

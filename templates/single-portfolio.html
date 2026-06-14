@@ -1,0 +1,30 @@
+<!-- wp:template-part {"slug":"header","tagName":"header","theme":"sodepy"} /-->
+
+<!-- wp:group {"tagName":"main","layout":{"type":"constrained"}} -->
+<main class="wp-block-group">
+
+	<!-- wp:group {"style":{"spacing":{"padding":{"top":"var:preset|spacing|80","bottom":"var:preset|spacing|60"}}},"layout":{"type":"constrained"}} -->
+	<div class="wp-block-group">
+
+		<!-- wp:post-terms {"term":"portfolio_category","textColor":"accent","style":{"typography":{"fontSize":"var:preset|font-size|xs","fontWeight":"600","textTransform":"uppercase","letterSpacing":"0.08em"},"spacing":{"margin":{"bottom":"var:preset|spacing|30"}}}} /-->
+
+		<!-- wp:post-title {"level":1,"style":{"typography":{"fontSize":"var:preset|font-size|3xl","fontWeight":"700"},"spacing":{"margin":{"bottom":"var:preset|spacing|60"}}}} /-->
+
+		<!-- wp:post-featured-image {"aspectRatio":"16/9","style":{"border":{"radius":"12px"},"spacing":{"margin":{"bottom":"var:preset|spacing|70"}}}} /-->
+
+		<!-- wp:post-content {"layout":{"type":"constrained"}} /-->
+
+		<!-- wp:group {"style":{"spacing":{"padding":{"top":"var:preset|spacing|80"}}},"layout":{"type":"flex","justifyContent":"space-between","flexWrap":"wrap"}} -->
+		<div class="wp-block-group">
+			<!-- wp:post-navigation-link {"type":"previous","label":"← Proyecto anterior"} /-->
+			<!-- wp:post-navigation-link {"type":"next","label":"Proyecto siguiente →"} /-->
+		</div>
+		<!-- /wp:group -->
+
+	</div>
+	<!-- /wp:group -->
+
+</main>
+<!-- /wp:group -->
+
+<!-- wp:template-part {"slug":"footer","tagName":"footer","theme":"sodepy"} /-->

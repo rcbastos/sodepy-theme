@@ -1,0 +1,38 @@
+<!-- wp:template-part {"slug":"header","tagName":"header","theme":"sodepy"} /-->
+
+<!-- wp:group {"tagName":"main","style":{"spacing":{"padding":{"top":"var:preset|spacing|80","bottom":"var:preset|spacing|90"}}},"layout":{"type":"constrained"}} -->
+<main class="wp-block-group">
+	<!-- wp:query-title {"type":"search","style":{"typography":{"fontSize":"var:preset|font-size|2xl","fontWeight":"700"},"spacing":{"margin":{"bottom":"var:preset|spacing|60"}}}} /-->
+	<!-- wp:search {"label":"","buttonText":"Buscar","buttonPosition":"button-outside","buttonUseIcon":true} /-->
+
+	<!-- wp:spacer {"height":"var:preset|spacing|70"} /--><div style="height:var(--wp--preset--spacing--70)" aria-hidden="true" class="wp-block-spacer"></div>
+
+	<!-- wp:query {"queryId":3,"query":{"perPage":10,"inherit":true}} -->
+	<div class="wp-block-query">
+		<!-- wp:post-template -->
+			<!-- wp:group {"style":{"spacing":{"padding":{"bottom":"var:preset|spacing|60"},"margin":{"bottom":"var:preset|spacing|60"}},"border":{"bottom":{"color":"var:preset|color|surface","width":"1px"}}},"layout":{"type":"flex","orientation":"vertical","rowGap":"var:preset|spacing|20"}} -->
+			<div class="wp-block-group">
+				<!-- wp:post-title {"isLink":true,"style":{"typography":{"fontSize":"var:preset|font-size|xl","fontWeight":"700"}}} /-->
+				<!-- wp:post-excerpt {"numberOfWords":30} /-->
+				<!-- wp:post-date {"textColor":"muted","style":{"typography":{"fontSize":"var:preset|font-size|xs"}}} /-->
+			</div>
+			<!-- /wp:group -->
+		<!-- /wp:post-template -->
+
+		<!-- wp:query-no-results -->
+		<!-- wp:paragraph -->
+		<p>No se encontraron resultados para tu búsqueda.</p>
+		<!-- /wp:paragraph -->
+		<!-- /wp:query-no-results -->
+
+		<!-- wp:query-pagination {"layout":{"type":"flex","justifyContent":"center"}} -->
+		<!-- wp:query-pagination-previous /-->
+		<!-- wp:query-pagination-numbers /-->
+		<!-- wp:query-pagination-next /-->
+		<!-- /wp:query-pagination -->
+	</div>
+	<!-- /wp:query -->
+</main>
+<!-- /wp:group -->
+
+<!-- wp:template-part {"slug":"footer","tagName":"footer","theme":"sodepy"} /-->

@@ -1,0 +1,46 @@
+<!-- wp:template-part {"slug":"header","tagName":"header","theme":"sodepy"} /-->
+
+<!-- wp:group {"tagName":"main","style":{"spacing":{"padding":{"top":"var:preset|spacing|80","bottom":"var:preset|spacing|90"}}},"layout":{"type":"constrained"}} -->
+<main class="wp-block-group">
+	<!-- wp:woocommerce/store-notices /-->
+
+	<!-- wp:woocommerce/breadcrumbs /-->
+
+	<!-- wp:group {"className":"single-product-layout","layout":{"type":"grid","columnCount":2,"minimumColumnWidth":"280px"},"style":{"spacing":{"blockGap":"var:preset|spacing|80","margin":{"top":"var:preset|spacing|60"}}}} -->
+	<div class="wp-block-group single-product-layout">
+
+		<!-- wp:woocommerce/product-image-gallery /-->
+
+		<!-- wp:group {"layout":{"type":"flex","orientation":"vertical","rowGap":"var:preset|spacing|50"}} -->
+		<div class="wp-block-group">
+			<!-- wp:post-terms {"term":"product_cat","textColor":"accent","style":{"typography":{"fontSize":"var:preset|font-size|xs","fontWeight":"600","textTransform":"uppercase"}}} /-->
+			<!-- wp:post-title {"level":1,"style":{"typography":{"fontSize":"var:preset|font-size|2xl","fontWeight":"700"}}} /-->
+			<!-- wp:woocommerce/product-rating /-->
+			<!-- wp:woocommerce/product-price {"style":{"typography":{"fontSize":"var:preset|font-size|2xl","fontWeight":"700"}},"textColor":"primary"} /-->
+			<!-- wp:post-excerpt /-->
+			<!-- wp:woocommerce/add-to-cart-form /-->
+			<!-- wp:woocommerce/product-meta /-->
+		</div>
+		<!-- /wp:group -->
+
+	</div>
+	<!-- /wp:group -->
+
+	<!-- wp:group {"style":{"spacing":{"padding":{"top":"var:preset|spacing|90"}}},"layout":{"type":"constrained"}} -->
+	<div class="wp-block-group">
+		<!-- wp:woocommerce/product-details /-->
+	</div>
+	<!-- /wp:group -->
+
+	<!-- wp:group {"style":{"spacing":{"padding":{"top":"var:preset|spacing|80"}}},"layout":{"type":"constrained"}} -->
+	<div class="wp-block-group">
+		<!-- wp:heading {"level":2,"style":{"typography":{"fontSize":"var:preset|font-size|xl","fontWeight":"700"}}} -->
+		<h2 class="wp-block-heading">Productos relacionados</h2>
+		<!-- /wp:heading -->
+		<!-- wp:woocommerce/related-products /-->
+	</div>
+	<!-- /wp:group -->
+</main>
+<!-- /wp:group -->
+
+<!-- wp:template-part {"slug":"footer","tagName":"footer","theme":"sodepy"} /-->

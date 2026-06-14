@@ -1,0 +1,161 @@
+/*
+ * Sodepy — WooCommerce Styles
+ * Personalización de WooCommerce para que encaje con la marca Sodepy.
+ */
+
+/* =========================================================
+   GENERAL
+   ========================================================= */
+.woocommerce .col2-set,
+.woocommerce-page .col2-set {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 2rem;
+}
+
+@media (max-width: 640px) {
+	.woocommerce .col2-set,
+	.woocommerce-page .col2-set {
+		grid-template-columns: 1fr;
+	}
+}
+
+/* =========================================================
+   PRODUCTO INDIVIDUAL
+   ========================================================= */
+.single-product-layout {
+	align-items: start;
+}
+
+.woocommerce-product-gallery {
+	border-radius: 12px;
+	overflow: hidden;
+}
+
+.woocommerce-product-gallery__wrapper img {
+	border-radius: 12px;
+}
+
+/* =========================================================
+   GRID DE PRODUCTOS
+   ========================================================= */
+ul.products {
+	display: grid !important;
+	grid-template-columns: repeat(3, 1fr) !important;
+	gap: 1.5rem !important;
+	margin: 0 !important;
+	padding: 0 !important;
+	list-style: none !important;
+}
+
+@media (max-width: 768px) {
+	ul.products { grid-template-columns: repeat(2, 1fr) !important; }
+}
+
+@media (max-width: 480px) {
+	ul.products { grid-template-columns: 1fr !important; }
+}
+
+ul.products li.product {
+	margin: 0 !important;
+}
+
+ul.products li.product a img {
+	border-radius: 8px;
+	transition: transform 0.3s ease;
+}
+
+ul.products li.product a:hover img {
+	transform: scale(1.03);
+}
+
+ul.products li.product .price {
+	font-size: var(--wp--preset--font-size--lg);
+	font-weight: 700;
+	color: var(--wp--preset--color--primary);
+}
+
+ul.products li.product .woocommerce-loop-category__title,
+ul.products li.product .woocommerce-loop-product__title {
+	font-size: var(--wp--preset--font-size--md);
+	font-weight: 700;
+	margin-top: 0.75rem;
+}
+
+/* =========================================================
+   CARRITO
+   ========================================================= */
+.woocommerce-cart-form table.shop_table {
+	border-radius: 12px;
+	overflow: hidden;
+	border: 1px solid var(--wp--preset--color--surface);
+}
+
+.woocommerce-cart-form table.shop_table th {
+	background: var(--wp--preset--color--primary);
+	color: white;
+	font-weight: 600;
+	text-align: left;
+	padding: 1rem;
+}
+
+.woocommerce-cart-form table.shop_table td {
+	padding: 1rem;
+	vertical-align: middle;
+}
+
+/* =========================================================
+   CHECKOUT
+   ========================================================= */
+.woocommerce-checkout #payment {
+	background: var(--wp--preset--color--surface);
+	border-radius: 12px;
+}
+
+.woocommerce-checkout .woocommerce-checkout-review-order-table {
+	border-radius: 12px;
+	overflow: hidden;
+}
+
+/* =========================================================
+   BOTONES (refuerzo)
+   ========================================================= */
+.woocommerce a.button,
+.woocommerce button.button,
+.woocommerce input.button,
+.woocommerce #respond input#submit,
+.woocommerce #payment #place_order {
+	background-color: var(--wp--preset--color--highlight) !important;
+	color: white !important;
+	border-radius: 6px !important;
+	font-weight: 600 !important;
+	padding: 0.75rem 1.5rem !important;
+	border: none !important;
+	transition: background-color 0.2s ease !important;
+	cursor: pointer !important;
+}
+
+.woocommerce a.button:hover,
+.woocommerce button.button:hover,
+.woocommerce #payment #place_order:hover {
+	background-color: var(--wp--preset--color--primary) !important;
+}
+
+.woocommerce a.button.alt,
+.woocommerce button.button.alt {
+	background-color: var(--wp--preset--color--highlight) !important;
+}
+
+/* =========================================================
+   MENSAJES Y NOTIFICACIONES
+   ========================================================= */
+.woocommerce-message,
+.woocommerce-info,
+.woocommerce-error {
+	border-radius: 8px !important;
+	border-top-color: var(--wp--preset--color--accent) !important;
+}
+
+.woocommerce-error {
+	border-top-color: #e53e3e !important;
+}

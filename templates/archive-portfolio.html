@@ -1,0 +1,53 @@
+<!-- wp:template-part {"slug":"header","tagName":"header","theme":"sodepy"} /-->
+
+<!-- wp:group {"tagName":"main","layout":{"type":"constrained"}} -->
+<main class="wp-block-group">
+
+	<!-- wp:group {"style":{"spacing":{"padding":{"top":"var:preset|spacing|80","bottom":"var:preset|spacing|70"}}},"layout":{"type":"constrained"}} -->
+	<div class="wp-block-group">
+		<!-- wp:query-title {"type":"archive","style":{"typography":{"fontSize":"var:preset|font-size|3xl","fontWeight":"700"}}} /-->
+		<!-- wp:term-description /-->
+	</div>
+	<!-- /wp:group -->
+
+	<!-- wp:group {"className":"portfolio-filter","style":{"spacing":{"padding":{"bottom":"var:preset|spacing|70"}}},"layout":{"type":"constrained"}} -->
+	<div class="wp-block-group portfolio-filter" data-portfolio-filter>
+		<!-- Los filtros de categoría se renderizan via JS desde data attributes -->
+	</div>
+	<!-- /wp:group -->
+
+	<!-- wp:query {"queryId":2,"query":{"perPage":9,"pages":0,"offset":0,"postType":"portfolio","order":"desc","orderBy":"date","inherit":false},"className":"portfolio-grid"} -->
+	<div class="wp-block-query portfolio-grid">
+		<!-- wp:post-template {"layout":{"type":"grid","columnCount":3}} -->
+			<!-- wp:group {"className":"portfolio-card","layout":{"type":"flex","orientation":"vertical"}} -->
+			<div class="wp-block-group portfolio-card">
+				<!-- wp:post-featured-image {"isLink":true,"aspectRatio":"4/3","style":{"border":{"radius":"8px"}}} /-->
+				<!-- wp:group {"style":{"spacing":{"padding":{"top":"var:preset|spacing|50","bottom":"var:preset|spacing|40"}}},"layout":{"type":"flex","orientation":"vertical","rowGap":"var:preset|spacing|20"}} -->
+				<div class="wp-block-group">
+					<!-- wp:post-terms {"term":"portfolio_category","textColor":"accent","style":{"typography":{"fontSize":"var:preset|font-size|xs","fontWeight":"600","textTransform":"uppercase"}}} /-->
+					<!-- wp:post-title {"isLink":true,"style":{"typography":{"fontSize":"var:preset|font-size|lg","fontWeight":"700"}}} /-->
+					<!-- wp:post-excerpt {"numberOfWords":15} /-->
+				</div>
+				<!-- /wp:group -->
+			</div>
+			<!-- /wp:group -->
+		<!-- /wp:post-template -->
+
+		<!-- wp:query-no-results -->
+		<!-- wp:paragraph -->
+		<p>No hay proyectos disponibles.</p>
+		<!-- /wp:paragraph -->
+		<!-- /wp:query-no-results -->
+
+		<!-- wp:query-pagination {"layout":{"type":"flex","justifyContent":"center"},"style":{"spacing":{"padding":{"top":"var:preset|spacing|80"}}}} -->
+		<!-- wp:query-pagination-previous /-->
+		<!-- wp:query-pagination-numbers /-->
+		<!-- wp:query-pagination-next /-->
+		<!-- /wp:query-pagination -->
+	</div>
+	<!-- /wp:query -->
+
+</main>
+<!-- /wp:group -->
+
+<!-- wp:template-part {"slug":"footer","tagName":"footer","theme":"sodepy"} /-->
