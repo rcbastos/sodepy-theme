@@ -82,32 +82,341 @@ a { transition: color 0.2s ease; }
 }
 
 /* =========================================================
-   HERO SECTION — diseño de dos columnas
+   HERO SECTION
    ========================================================= */
 .hero-section {
+	background-color: var(--wp--preset--color--primary);
+	padding: var(--wp--preset--spacing--100) var(--wp--preset--spacing--60);
 	overflow: hidden;
 }
 
+.hero-text {
+	display: flex;
+	flex-direction: column;
+	gap: var(--wp--preset--spacing--50);
+}
+
 .hero-label {
-	display: inline-block;
+	text-transform: uppercase;
+	letter-spacing: 0.15em;
+	font-size: var(--wp--preset--font-size--xs) !important;
+	font-weight: 700;
+	margin: 0;
+}
+
+.hero-title {
+	font-size: var(--wp--preset--font-size--hero) !important;
+	font-weight: 800;
+	line-height: 1.1;
+	margin: 0;
+}
+
+.hero-description {
+	color: rgba(244, 246, 248, 0.85);
+	font-size: var(--wp--preset--font-size--lg);
+	line-height: 1.65;
+	margin: 0;
+}
+
+.hero-buttons {
+	margin-top: var(--wp--preset--spacing--40);
+	gap: var(--wp--preset--spacing--40) !important;
+}
+
+.hero-btn-outline .wp-block-button__link {
+	border: 2px solid rgba(255, 255, 255, 0.5) !important;
+}
+
+.hero-trust {
+	color: rgba(244, 246, 248, 0.5);
+	font-size: var(--wp--preset--font-size--xs);
+	border-top: 1px solid rgba(255, 255, 255, 0.1);
+	padding-top: 1.25rem;
+	margin: 0;
 }
 
 .hero-image-box {
+	background: rgba(23, 110, 181, 0.15);
+	border: 1px solid rgba(255, 255, 255, 0.1);
+	border-radius: 16px;
+	padding: var(--wp--preset--spacing--70) var(--wp--preset--spacing--60);
 	aspect-ratio: 4 / 3;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
 	text-align: center;
+	gap: var(--wp--preset--spacing--30);
 }
 
-@media (max-width: 781px) {
-	.hero-section .wp-block-columns {
-		flex-direction: column;
-	}
-	.hero-section .wp-block-column:last-child {
-		display: none; /* ocultar placeholder en móvil si no hay imagen real */
-	}
+.hero-img-icon {
+	font-size: 4rem;
+	color: rgba(244, 246, 248, 0.3);
+	line-height: 1;
+	margin: 0;
+}
+
+.hero-img-label {
+	color: rgba(244, 246, 248, 0.5);
+	font-size: var(--wp--preset--font-size--sm);
+	font-weight: 500;
+	margin: 0;
+}
+
+.hero-img-hint {
+	color: rgba(244, 246, 248, 0.3);
+	font-size: var(--wp--preset--font-size--xs);
+	margin: 0;
+}
+
+/* =========================================================
+   PROBLEM SECTION
+   ========================================================= */
+.problem-section {
+	background-color: var(--wp--preset--color--surface);
+	padding: var(--wp--preset--spacing--100) var(--wp--preset--spacing--60);
+}
+
+.problem-grid {
+	margin-top: var(--wp--preset--spacing--70);
+	gap: var(--wp--preset--spacing--50) !important;
+}
+
+.problem-card {
+	background-color: var(--wp--preset--color--base);
+	border: 1px solid rgba(10, 38, 80, 0.07);
+	border-radius: 12px;
+	padding: var(--wp--preset--spacing--60);
+	display: flex;
+	flex-direction: column;
+	gap: var(--wp--preset--spacing--30);
+	box-shadow: var(--wp--preset--shadow--soft);
+	transition: transform 0.25s ease, box-shadow 0.25s ease;
+	height: 100%;
+}
+
+.problem-card:hover {
+	transform: translateY(-4px);
+	box-shadow: var(--wp--preset--shadow--medium);
+}
+
+.problem-icon {
+	font-size: 2rem;
+	margin: 0;
+	line-height: 1;
+}
+
+.problem-card h3 { margin: 0; }
+.problem-card p  { margin: 0; }
+
+.problem-cta {
+	margin-top: var(--wp--preset--spacing--70);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-wrap: wrap;
+	gap: var(--wp--preset--spacing--40);
+}
+
+.problem-resolution {
+	font-weight: 600;
+	font-size: var(--wp--preset--font-size--md);
+	margin: 0;
+}
+
+/* =========================================================
+   SERVICES SECTION
+   ========================================================= */
+.services-section {
+	background-color: var(--wp--preset--color--base);
+	padding: var(--wp--preset--spacing--100) var(--wp--preset--spacing--60);
+}
+
+.services-row {
+	margin-top: var(--wp--preset--spacing--50);
+	gap: var(--wp--preset--spacing--50) !important;
+}
+
+.services-row:first-of-type {
+	margin-top: var(--wp--preset--spacing--70);
+}
+
+.service-card {
+	background-color: var(--wp--preset--color--base);
+	border: 1px solid rgba(10, 38, 80, 0.08);
+	border-radius: 12px;
+	overflow: hidden;
+	box-shadow: var(--wp--preset--shadow--soft);
+	display: flex;
+	flex-direction: column;
+	transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.service-card:hover {
+	transform: translateY(-4px) !important;
+	box-shadow: var(--wp--preset--shadow--strong) !important;
+}
+
+.service-icon-wrap {
+	background-color: var(--wp--preset--color--surface);
+	padding: var(--wp--preset--spacing--60) 0;
+	text-align: center;
+}
+
+.service-icon {
+	font-size: 2.5rem;
+	margin: 0;
+	line-height: 1;
+}
+
+.service-body {
+	padding: var(--wp--preset--spacing--50);
+	display: flex;
+	flex-direction: column;
+	gap: var(--wp--preset--spacing--30);
+	flex: 1;
+}
+
+.service-body h3 { margin: 0; }
+.service-body p  { margin: 0; }
+
+.service-link a {
+	color: inherit;
+	text-decoration: none;
+	font-weight: 600;
+}
+
+.service-link a:hover {
+	color: var(--wp--preset--color--highlight);
+}
+
+/* =========================================================
+   PROCESS SECTION
+   ========================================================= */
+.process-section {
+	background-color: var(--wp--preset--color--surface);
+	padding: var(--wp--preset--spacing--100) var(--wp--preset--spacing--60);
+}
+
+.process-grid {
+	margin-top: var(--wp--preset--spacing--70);
+	gap: var(--wp--preset--spacing--60) !important;
+}
+
+.process-step {
+	background-color: var(--wp--preset--color--base);
+	border-radius: 12px;
+	padding: var(--wp--preset--spacing--70) var(--wp--preset--spacing--60);
+	box-shadow: var(--wp--preset--shadow--soft);
+	display: flex;
+	flex-direction: column;
+	gap: var(--wp--preset--spacing--30);
+	transition: box-shadow 0.25s ease;
+}
+
+.process-step:hover {
+	box-shadow: var(--wp--preset--shadow--medium);
+}
+
+.process-number {
+	font-size: 3.5rem;
+	font-weight: 800;
+	line-height: 1;
+	color: rgba(10, 38, 80, 0.08);
+	margin: 0;
+	user-select: none;
+}
+
+.process-icon {
+	font-size: 1.75rem;
+	margin: 0;
+	line-height: 1;
+}
+
+.process-step h3 { margin: 0; }
+.process-step p  { margin: 0; }
+
+/* =========================================================
+   WHY US SECTION
+   ========================================================= */
+.why-us-section {
+	background-color: var(--wp--preset--color--base);
+	padding: var(--wp--preset--spacing--100) var(--wp--preset--spacing--60);
+}
+
+.why-us-columns {
+	gap: var(--wp--preset--spacing--100) !important;
+	align-items: center;
+}
+
+.why-us-text {
+	display: flex;
+	flex-direction: column;
+	gap: var(--wp--preset--spacing--50);
+}
+
+.why-us-text h2,
+.why-us-text p { margin: 0; }
+
+.why-us-cta { margin-top: var(--wp--preset--spacing--20); }
+
+.why-us-grid {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: var(--wp--preset--spacing--40);
+}
+
+.why-us-card {
+	background-color: var(--wp--preset--color--surface);
+	border-radius: 10px;
+	padding: var(--wp--preset--spacing--50);
+	display: flex;
+	flex-direction: column;
+	gap: var(--wp--preset--spacing--20);
+	transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.why-us-card:hover {
+	transform: translateY(-3px);
+	box-shadow: var(--wp--preset--shadow--medium);
+}
+
+.why-us-icon {
+	font-size: 1.75rem;
+	margin: 0;
+	line-height: 1;
+}
+
+.why-us-card h4 { margin: 0; }
+
+.why-us-desc {
+	font-size: var(--wp--preset--font-size--xs);
+	margin: 0;
+	line-height: 1.5;
+}
+
+/* =========================================================
+   SECTION HEADER GLOBAL
+   ========================================================= */
+.section-header {
+	text-align: center;
+	max-width: 640px;
+	margin-inline: auto;
+	margin-bottom: var(--wp--preset--spacing--70);
+	display: flex;
+	flex-direction: column;
+	gap: var(--wp--preset--spacing--30);
+}
+
+.section-header h2,
+.section-header p { margin: 0; }
+
+.section-label {
+	text-transform: uppercase;
+	letter-spacing: 0.15em;
+	font-size: var(--wp--preset--font-size--xs) !important;
+	font-weight: 700;
+	margin: 0;
 }
 
 /* =========================================================
