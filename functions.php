@@ -7,6 +7,8 @@ define( 'SODEPY_URI', get_template_directory_uri() );
 
 require_once SODEPY_DIR . '/inc/setup.php';
 require_once SODEPY_DIR . '/inc/enqueue.php';
+require_once SODEPY_DIR . '/inc/customizer.php';
+require_once SODEPY_DIR . '/inc/header-output.php';
 require_once SODEPY_DIR . '/inc/schema.php';
 require_once SODEPY_DIR . '/inc/i18n.php';
 
