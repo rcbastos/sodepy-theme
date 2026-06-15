@@ -5,14 +5,14 @@ add_action( 'wp_enqueue_scripts', 'sodepy_enqueue_assets' );
 function sodepy_enqueue_assets(): void {
 	wp_enqueue_style(
 		'sodepy-theme',
-		SODEPY_URI . '/assets/css/theme.min.css',
+		SODEPY_URI . '/assets/css/theme.css',
 		[],
 		SODEPY_VERSION
 	);
 
 	wp_enqueue_script(
 		'sodepy-theme',
-		SODEPY_URI . '/assets/js/theme.min.js',
+		SODEPY_URI . '/assets/js/theme.js',
 		[],
 		SODEPY_VERSION,
 		[ 'strategy' => 'defer', 'in_footer' => true ]

@@ -33,11 +33,11 @@ a { transition: color 0.2s ease; }
    HEADER STICKY
    ========================================================= */
 .site-header {
+	background-color: #0A2650;
 	position: sticky;
 	top: 0;
 	z-index: 1000;
 	transition: background 0.3s ease, box-shadow 0.3s ease;
-	backdrop-filter: blur(0px);
 }
 
 .site-header.is-scrolled {
@@ -47,9 +47,25 @@ a { transition: color 0.2s ease; }
 }
 
 .header-inner {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 2rem;
 	max-width: 1280px;
 	margin-inline: auto;
 	padding-inline: clamp(1rem, 5vw, 2.5rem);
+	padding-top: 1rem;
+	padding-bottom: 1rem;
+}
+
+/* Site logo color fix in dark header */
+.site-header .wp-block-site-logo img {
+	filter: brightness(10);
+}
+
+/* Nav links */
+.site-header .wp-block-navigation .wp-block-navigation-item__content {
+	color: rgba(255,255,255,0.85) !important;
 }
 
 /* =========================================================
