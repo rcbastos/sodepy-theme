@@ -47,7 +47,8 @@ function sodepy_customizer_header( WP_Customize_Manager $wp_customize ): void {
 
 	sodepy_add_setting( $wp_customize, 'sodepy_logo_width', 140, 'absint' );
 	$wp_customize->add_control( 'sodepy_logo_width', [
-		'label'       => 'Ancho del logo (px)',
+		'label'       => 'Tamaño del logo (px)',
+		'description' => 'Escala el logo proporcionalmente, sin deformarlo.',
 		'section'     => 'sodepy_s_logo',
 		'type'        => 'range',
 		'input_attrs' => [ 'min' => 60, 'max' => 300, 'step' => 5 ],

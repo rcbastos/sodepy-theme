@@ -119,9 +119,8 @@ a { transition: color 0.2s ease; }
 }
 .sodepy-logo img {
 	display: block;
-	height: auto;
-	max-height: 64px;
-	width: auto;
+	width: 140px; /* matches Customizer default — overridden inline via dynamic CSS */
+	height: auto; /* preserves aspect ratio as width changes — no max-height clamp */
 	background: transparent;
 }
 
