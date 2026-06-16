@@ -71,10 +71,21 @@ a { transition: color 0.2s ease; }
 	min-width: 0;
 }
 
-/* Site logo — display as-is (colors preserved) */
+/* Site logo — transparent background, no decoration */
+.site-header .wp-block-site-logo,
+.site-header .wp-block-site-logo a,
+.site-header .wp-block-site-logo figure {
+	background: transparent !important;
+	border: none !important;
+	box-shadow: none !important;
+	padding: 0 !important;
+	margin: 0 !important;
+	line-height: 0;
+}
 .site-header .wp-block-site-logo img {
 	height: auto;
 	display: block;
+	background: transparent !important;
 }
 
 /* Site title default style in header */

@@ -25,6 +25,17 @@
 	transform: none;
 }
 
+/* Site logo: forzar fondo transparente en el Personalizador y editor */
+.wp-block-site-logo,
+.wp-block-site-logo a,
+.wp-block-site-logo figure {
+	background: transparent !important;
+	border: none !important;
+	box-shadow: none !important;
+	padding: 0 !important;
+	margin: 0 !important;
+}
+
 /* Inputs del formulario en el editor */
 .editor-styles-wrapper input[type="text"],
 .editor-styles-wrapper input[type="email"],
