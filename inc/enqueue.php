@@ -3,18 +3,21 @@ defined( 'ABSPATH' ) || exit;
 
 add_action( 'wp_enqueue_scripts', 'sodepy_enqueue_assets' );
 function sodepy_enqueue_assets(): void {
+	$css_path = SODEPY_DIR . '/assets/css/theme.css';
+	$js_path  = SODEPY_DIR . '/assets/js/theme.js';
+
 	wp_enqueue_style(
 		'sodepy-theme',
 		SODEPY_URI . '/assets/css/theme.css',
 		[],
-		SODEPY_VERSION
+		file_exists( $css_path ) ? (string) filemtime( $css_path ) : SODEPY_VERSION
 	);
 
 	wp_enqueue_script(
 		'sodepy-theme',
 		SODEPY_URI . '/assets/js/theme.js',
 		[],
-		SODEPY_VERSION,
+		file_exists( $js_path ) ? (string) filemtime( $js_path ) : SODEPY_VERSION,
 		[ 'strategy' => 'defer', 'in_footer' => true ]
 	);
 
@@ -50,11 +53,12 @@ function sodepy_critical_meta(): void {
 
 add_action( 'admin_enqueue_scripts', 'sodepy_enqueue_editor_styles' );
 function sodepy_enqueue_editor_styles(): void {
+	$editor_path = SODEPY_DIR . '/assets/css/editor.css';
 	wp_enqueue_style(
 		'sodepy-editor',
 		SODEPY_URI . '/assets/css/editor.css',
 		[],
-		SODEPY_VERSION
+		file_exists( $editor_path ) ? (string) filemtime( $editor_path ) : SODEPY_VERSION
 	);
 }
 
