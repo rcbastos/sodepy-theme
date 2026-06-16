@@ -65,6 +65,21 @@ a { transition: color 0.2s ease; }
 	align-items: center;
 	gap: 1.25rem;
 	min-width: 0;
+	flex-shrink: 1;
+	flex-wrap: nowrap; /* never allow a second row */
+}
+
+/* Every direct child must be a proper flex item */
+.header-zone > * {
+	flex: 0 1 auto;
+	min-width: 0;
+}
+
+/* Navigation is block-level by default — force it into the flex row */
+.header-zone > .wp-block-navigation {
+	display: flex;
+	align-items: center;
+	flex: 0 1 auto;
 }
 
 .header-zone-left {

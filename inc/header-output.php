@@ -132,13 +132,16 @@ function sodepy_inject_header_cta( string $block_content, array $block ): string
 /**
  * Zone builder (priority 11).
  *
- * Captures header-brand, site-nav and header-cta (already processed by priority 10
- * filters above), then rebuilds header-inner as 3 named zone divs.
+ * Logo and site-name are captured as INDEPENDENT zone elements so each can be
+ * positioned separately via Customizer. The header-brand wrapper is discarded.
+ *
+ * Priority 10 filters (logo replacement, CTA injection) fire first, so we
+ * always capture the final HTML for each element.
  *
  * Zone rules:
- *   – Each element is assigned to left / center / right by its Customizer setting.
- *   – Multiple elements in the same zone appear side-by-side (flex row) — no wrapping.
- *   – Left/right zones grow to fill remaining space; center is auto-width.
+ *   – Each element goes to left / center / right per its Customizer setting.
+ *   – Multiple elements in the same zone sit side-by-side (flex row, no wrapping).
+ *   – Left/right zones flex-grow; center is auto-width → stays truly centered.
  */
 add_filter( 'render_block', 'sodepy_zone_builder', 11, 2 );
 function sodepy_zone_builder( string $content, array $block ): string {
@@ -147,18 +150,35 @@ function sodepy_zone_builder( string $content, array $block ): string {
 	$name  = $block['blockName'] ?? '';
 	$class = $block['attrs']['className'] ?? '';
 
-	// ── Capture children ──────────────────────────────
-	if ( 'core/group' === $name && strpos( $class, 'header-brand' ) !== false ) {
-		$els['brand'] = $content;
+	// ── Capture individual header elements ────────────
+
+	// Logo — scoped by 'header-logo' class added in header.html
+	if ( 'core/site-logo' === $name && strpos( $class, 'header-logo' ) !== false ) {
+		$els['logo'] = $content;
 		return $content;
 	}
+
+	// Site name — scoped by 'header-site-title' class in header.html
+	if ( 'core/site-title' === $name && strpos( $class, 'header-site-title' ) !== false ) {
+		$els['sitename'] = $content;
+		return $content;
+	}
+
+	// Navigation
 	if ( 'core/navigation' === $name && strpos( $class, 'site-nav' ) !== false ) {
 		$els['nav'] = $content;
 		return $content;
 	}
+
+	// CTA (already injected by sodepy_inject_header_cta at priority 10)
 	if ( 'core/group' === $name && strpos( $class, 'header-cta' ) !== false ) {
 		$els['cta'] = $content;
 		return $content;
+	}
+
+	// header-brand wrapper: logo + sitename captured separately above → discard wrapper
+	if ( 'core/group' === $name && strpos( $class, 'header-brand' ) !== false ) {
+		return $content; // returned unchanged but NOT assigned to any zone
 	}
 
 	// ── Rebuild header-inner with zones ───────────────
@@ -166,15 +186,22 @@ function sodepy_zone_builder( string $content, array $block ): string {
 		return $content;
 	}
 
-	$brand_pos = get_theme_mod( 'sodepy_logo_position', 'left' );
+	$logo_pos  = get_theme_mod( 'sodepy_logo_position', 'left' );
+	$name_pos  = get_theme_mod( 'sodepy_sitename_position', 'left' );
 	$nav_pos   = get_theme_mod( 'sodepy_nav_position', 'center' );
 	$cta_pos   = get_theme_mod( 'sodepy_cta_position', 'right' );
-	$show_cta  = (bool) get_theme_mod( 'sodepy_show_cta', true );
+
+	$show_logo     = (bool) get_theme_mod( 'sodepy_show_logo', true );
+	$show_sitename = (bool) get_theme_mod( 'sodepy_show_sitename', false );
+	$show_cta      = (bool) get_theme_mod( 'sodepy_show_cta', true );
 
 	$zones = [ 'left' => [], 'center' => [], 'right' => [] ];
 
-	if ( ! empty( $els['brand'] ) ) {
-		$zones[ $brand_pos ][] = $els['brand'];
+	if ( $show_logo && ! empty( $els['logo'] ) ) {
+		$zones[ $logo_pos ][] = $els['logo'];
+	}
+	if ( $show_sitename && ! empty( $els['sitename'] ) ) {
+		$zones[ $name_pos ][] = $els['sitename'];
 	}
 	if ( ! empty( $els['nav'] ) ) {
 		$zones[ $nav_pos ][] = $els['nav'];
@@ -191,7 +218,7 @@ function sodepy_zone_builder( string $content, array $block ): string {
 	}
 	$html .= '</div>';
 
-	$els = []; // reset for next request
+	$els = [];
 	return $html;
 }
 
