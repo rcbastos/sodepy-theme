@@ -257,8 +257,12 @@
 				}
 			},
 			"core/site-logo": {
+				"color": {
+					"background": "transparent"
+				},
 				"spacing": {
-					"margin": { "top": "0", "bottom": "0" }
+					"margin": { "top": "0", "bottom": "0" },
+					"padding": { "top": "0", "bottom": "0", "left": "0", "right": "0" }
 				}
 			},
 			"core/separator": {
