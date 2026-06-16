@@ -2,25 +2,20 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Output dynamic <style> in <head> based on Cabecera customizer settings.
+ * Dynamic <style> in <head> — background, width, logo, sitename, CTA button styles.
+ * Grid-column assignments removed: positioning is now handled by the zone builder.
  */
 add_action( 'wp_head', 'sodepy_header_dynamic_css', 20 );
 function sodepy_header_dynamic_css(): void {
 
-	/* ── Read settings ────────────────────────────── */
 	$show_logo   = (bool) get_theme_mod( 'sodepy_show_logo', true );
-	$logo_pos    = get_theme_mod( 'sodepy_logo_position', 'left' );
 	$logo_w      = absint( get_theme_mod( 'sodepy_logo_width', 140 ) );
 
 	$show_name   = (bool) get_theme_mod( 'sodepy_show_sitename', false );
-	$name_pos    = get_theme_mod( 'sodepy_sitename_position', 'left' );
 	$name_color  = sanitize_hex_color( get_theme_mod( 'sodepy_sitename_color', '#ffffff' ) ) ?: '#ffffff';
 	$name_size   = (float) get_theme_mod( 'sodepy_sitename_size', 1.25 );
 	$name_weight = get_theme_mod( 'sodepy_sitename_weight', '700' );
 
-	$nav_pos     = get_theme_mod( 'sodepy_nav_position', 'center' );
-
-	$cta_pos     = get_theme_mod( 'sodepy_cta_position', 'right' );
 	$cta_bg      = sanitize_hex_color( get_theme_mod( 'sodepy_cta_bg_color', '#F28D0A' ) ) ?: '#F28D0A';
 	$cta_color   = sanitize_hex_color( get_theme_mod( 'sodepy_cta_text_color', '#ffffff' ) ) ?: '#ffffff';
 	$cta_radius  = absint( get_theme_mod( 'sodepy_cta_border_radius', 6 ) );
@@ -32,18 +27,6 @@ function sodepy_header_dynamic_css(): void {
 	$bg_color    = sanitize_hex_color( get_theme_mod( 'sodepy_header_bg_color', '#0A2650' ) ) ?: '#0A2650';
 	$bg_image    = esc_url( get_theme_mod( 'sodepy_header_bg_image', '' ) );
 
-	/* ── Column mapping ────────────────────────────── */
-	$cols = [ 'left' => 1, 'center' => 2, 'right' => 3 ];
-	$self = [ 'left' => 'start', 'center' => 'center', 'right' => 'end' ];
-
-	$brand_col  = $cols[ $logo_pos ]  ?? 1;
-	$brand_just = $self[ $logo_pos ]  ?? 'start';
-	$nav_col    = $cols[ $nav_pos ]   ?? 2;
-	$nav_just   = $self[ $nav_pos ]   ?? 'center';
-	$cta_col    = $cols[ $cta_pos ]   ?? 3;
-	$cta_just   = $self[ $cta_pos ]   ?? 'end';
-
-	/* ── Build CSS ─────────────────────────────────── */
 	$css = '';
 
 	// Background
@@ -55,20 +38,15 @@ function sodepy_header_dynamic_css(): void {
 		$css .= '.site-header{background-color:' . $bg_color . '!important;}';
 	}
 
-	// Inner container width + padding
+	// Inner width + padding
 	$max_w = $hdr_width > 0 ? $hdr_width . 'px' : '100%';
 	$css  .= '.header-inner{max-width:' . $max_w . ';padding-top:' . $pad_y . 'rem;padding-bottom:' . $pad_y . 'rem;}';
 
-	// Grid positions
-	$css .= '.header-brand{grid-column:' . $brand_col . ';justify-self:' . $brand_just . ';}';
-	$css .= '.site-nav{grid-column:' . $nav_col . ';justify-self:' . $nav_just . ';}';
-	$css .= '.header-cta{grid-column:' . $cta_col . ';justify-self:' . $cta_just . ';}';
-
 	// Logo
 	if ( ! $show_logo ) {
-		$css .= '.site-header .wp-block-site-logo{display:none!important;}';
+		$css .= '.sodepy-logo{display:none!important;}';
 	} elseif ( $logo_w && $logo_w !== 140 ) {
-		$css .= '.site-header .wp-block-site-logo img{width:' . $logo_w . 'px!important;height:auto!important;}';
+		$css .= '.sodepy-logo img{width:' . $logo_w . 'px!important;}';
 	}
 
 	// Site name
@@ -76,52 +54,25 @@ function sodepy_header_dynamic_css(): void {
 		$css .= '.site-header .wp-block-site-title{display:none!important;}';
 	} else {
 		$css .= '.site-header .wp-block-site-title{font-size:' . $name_size . 'rem!important;font-weight:' . absint( $name_weight ) . '!important;margin:0!important;}';
-		$css .= '.site-header .wp-block-site-title a{color:' . $name_color . '!important;text-decoration:none!important;}';
-		$css .= '.site-header .wp-block-site-title{color:' . $name_color . '!important;}';
+		$css .= '.site-header .wp-block-site-title,.site-header .wp-block-site-title a{color:' . $name_color . '!important;text-decoration:none!important;}';
 	}
 
 	// CTA button styles
 	if ( 'outline' === $cta_style ) {
-		$css .= '.header-btn-cta{background:transparent!important;border:2px solid ' . $cta_color . '!important;color:' . $cta_color . '!important;border-radius:' . $cta_radius . 'px!important;}';
-		$css .= '.header-btn-cta:hover{background:' . $cta_color . '!important;color:' . $bg_color . '!important;}';
+		$css .= '.header-btn-cta{background:transparent!important;border:2px solid ' . $cta_color . '!important;color:' . $cta_color . '!important;}';
+		$css .= '.header-btn-cta:hover{background:' . $cta_color . '!important;color:#0A2650!important;}';
 	} else {
-		$css .= '.header-btn-cta{background-color:' . $cta_bg . '!important;color:' . $cta_color . '!important;border:none!important;border-radius:' . $cta_radius . 'px!important;}';
+		$css .= '.header-btn-cta{background-color:' . $cta_bg . '!important;color:' . $cta_color . '!important;border:2px solid transparent!important;}';
 		$css .= '.header-btn-cta:hover{filter:brightness(1.1);}';
 	}
-	$css .= '.header-btn-cta{display:inline-block;padding:.625rem 1.25rem;font-weight:600;font-size:.875rem;text-decoration:none;transition:all .2s ease;white-space:nowrap;cursor:pointer;line-height:1.4;}';
+	$css .= '.header-btn-cta{border-radius:' . $cta_radius . 'px!important;}';
 
 	// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	echo '<style id="sodepy-hdr">' . $css . '</style>' . "\n";
 }
 
 /**
- * Inject the CTA button into .header-cta via render_block filter.
- * This replaces the empty div with the dynamic button when enabled.
- */
-add_filter( 'render_block', 'sodepy_inject_header_cta', 10, 2 );
-function sodepy_inject_header_cta( string $block_content, array $block ): string {
-	if ( ( $block['blockName'] ?? '' ) !== 'core/group' ) {
-		return $block_content;
-	}
-	if ( strpos( $block['attrs']['className'] ?? '', 'header-cta' ) === false ) {
-		return $block_content;
-	}
-
-	$show_cta = (bool) get_theme_mod( 'sodepy_show_cta', true );
-	if ( ! $show_cta ) {
-		return '<div class="wp-block-group header-cta"></div>';
-	}
-
-	$text = esc_html( get_theme_mod( 'sodepy_cta_text', 'Solicitar info →' ) );
-	$url  = esc_url( get_theme_mod( 'sodepy_cta_url', '#contacto' ) );
-
-	return '<div class="wp-block-group header-cta">
-		<a class="header-btn-cta" href="' . $url . '">' . $text . '</a>
-	</div>';
-}
-
-/**
- * Replace wp-block-site-logo output with clean HTML — no block wrapper, no stray backgrounds.
+ * Replace wp-block-site-logo with clean <img> — no block wrapper, no stray backgrounds.
  */
 add_filter( 'render_block', 'sodepy_render_site_logo', 10, 2 );
 function sodepy_render_site_logo( string $block_content, array $block ): string {
@@ -139,12 +90,9 @@ function sodepy_render_site_logo( string $block_content, array $block ): string 
 		return '';
 	}
 
-	$width   = absint( get_theme_mod( 'sodepy_logo_width', 140 ) );
-	$src     = wp_get_attachment_image_url( $logo_id, 'full' );
-	$alt     = trim( (string) get_post_meta( $logo_id, '_wp_attachment_image_alt', true ) );
-	if ( ! $alt ) {
-		$alt = get_bloginfo( 'name' );
-	}
+	$width = absint( get_theme_mod( 'sodepy_logo_width', 140 ) );
+	$src   = wp_get_attachment_image_url( $logo_id, 'full' );
+	$alt   = trim( (string) get_post_meta( $logo_id, '_wp_attachment_image_alt', true ) ) ?: get_bloginfo( 'name' );
 
 	if ( ! $src ) {
 		return '';
@@ -152,21 +100,110 @@ function sodepy_render_site_logo( string $block_content, array $block ): string 
 
 	return '<div class="sodepy-logo">'
 		. '<a href="' . esc_url( home_url( '/' ) ) . '" rel="home" aria-label="' . esc_attr( $alt ) . '">'
-		. '<img src="' . esc_url( $src ) . '" alt="' . esc_attr( $alt ) . '" width="' . $width . '" height="auto" loading="eager" decoding="async">'
+		. '<img src="' . esc_url( $src ) . '" alt="' . esc_attr( $alt ) . '" width="' . $width . '" loading="eager" decoding="async" style="height:auto;display:block;">'
 		. '</a></div>';
 }
 
 /**
+ * Inject CTA button into .header-cta (priority 10 — before zone capture at 11).
+ */
+add_filter( 'render_block', 'sodepy_inject_header_cta', 10, 2 );
+function sodepy_inject_header_cta( string $block_content, array $block ): string {
+	if ( ( $block['blockName'] ?? '' ) !== 'core/group' ) {
+		return $block_content;
+	}
+	if ( strpos( $block['attrs']['className'] ?? '', 'header-cta' ) === false ) {
+		return $block_content;
+	}
+
+	$show = (bool) get_theme_mod( 'sodepy_show_cta', true );
+	if ( ! $show ) {
+		return '<div class="wp-block-group header-cta"></div>';
+	}
+
+	$text = esc_html( get_theme_mod( 'sodepy_cta_text', 'Solicitar info →' ) );
+	$url  = esc_url( get_theme_mod( 'sodepy_cta_url', '#contacto' ) );
+
+	return '<div class="wp-block-group header-cta">'
+		. '<a class="header-btn-cta" href="' . $url . '">' . $text . '</a>'
+		. '</div>';
+}
+
+/**
+ * Zone builder (priority 11).
+ *
+ * Captures header-brand, site-nav and header-cta (already processed by priority 10
+ * filters above), then rebuilds header-inner as 3 named zone divs.
+ *
+ * Zone rules:
+ *   – Each element is assigned to left / center / right by its Customizer setting.
+ *   – Multiple elements in the same zone appear side-by-side (flex row) — no wrapping.
+ *   – Left/right zones grow to fill remaining space; center is auto-width.
+ */
+add_filter( 'render_block', 'sodepy_zone_builder', 11, 2 );
+function sodepy_zone_builder( string $content, array $block ): string {
+	static $els = [];
+
+	$name  = $block['blockName'] ?? '';
+	$class = $block['attrs']['className'] ?? '';
+
+	// ── Capture children ──────────────────────────────
+	if ( 'core/group' === $name && strpos( $class, 'header-brand' ) !== false ) {
+		$els['brand'] = $content;
+		return $content;
+	}
+	if ( 'core/navigation' === $name && strpos( $class, 'site-nav' ) !== false ) {
+		$els['nav'] = $content;
+		return $content;
+	}
+	if ( 'core/group' === $name && strpos( $class, 'header-cta' ) !== false ) {
+		$els['cta'] = $content;
+		return $content;
+	}
+
+	// ── Rebuild header-inner with zones ───────────────
+	if ( 'core/group' !== $name || strpos( $class, 'header-inner' ) === false ) {
+		return $content;
+	}
+
+	$brand_pos = get_theme_mod( 'sodepy_logo_position', 'left' );
+	$nav_pos   = get_theme_mod( 'sodepy_nav_position', 'center' );
+	$cta_pos   = get_theme_mod( 'sodepy_cta_position', 'right' );
+	$show_cta  = (bool) get_theme_mod( 'sodepy_show_cta', true );
+
+	$zones = [ 'left' => [], 'center' => [], 'right' => [] ];
+
+	if ( ! empty( $els['brand'] ) ) {
+		$zones[ $brand_pos ][] = $els['brand'];
+	}
+	if ( ! empty( $els['nav'] ) ) {
+		$zones[ $nav_pos ][] = $els['nav'];
+	}
+	if ( $show_cta && ! empty( $els['cta'] ) ) {
+		$zones[ $cta_pos ][] = $els['cta'];
+	}
+
+	$html = '<div class="wp-block-group header-inner">';
+	foreach ( [ 'left', 'center', 'right' ] as $zone ) {
+		$html .= '<div class="header-zone header-zone-' . $zone . '">';
+		$html .= implode( '', $zones[ $zone ] );
+		$html .= '</div>';
+	}
+	$html .= '</div>';
+
+	$els = []; // reset for next request
+	return $html;
+}
+
+/**
  * Change navigation overlayMenu based on Customizer nav style setting.
- * Targets only the header nav block (className = site-nav).
  */
 add_filter( 'render_block_data', 'sodepy_header_nav_overlay', 10, 2 );
 function sodepy_header_nav_overlay( array $block, array $source_block ): array {
 	if ( ( $block['blockName'] ?? '' ) !== 'core/navigation' ) {
 		return $block;
 	}
-	$class = $block['attrs']['className'] ?? '';
-	if ( strpos( $class, 'site-nav' ) === false ) {
+	if ( strpos( $block['attrs']['className'] ?? '', 'site-nav' ) === false ) {
 		return $block;
 	}
 	$style = get_theme_mod( 'sodepy_nav_style', 'horizontal' );
