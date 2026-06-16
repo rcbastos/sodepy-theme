@@ -20,6 +20,12 @@ function sodepy_header_dynamic_css(): void {
 
 	$nav_pos     = get_theme_mod( 'sodepy_nav_position', 'center' );
 
+	$cta_pos     = get_theme_mod( 'sodepy_cta_position', 'right' );
+	$cta_bg      = sanitize_hex_color( get_theme_mod( 'sodepy_cta_bg_color', '#F28D0A' ) ) ?: '#F28D0A';
+	$cta_color   = sanitize_hex_color( get_theme_mod( 'sodepy_cta_text_color', '#ffffff' ) ) ?: '#ffffff';
+	$cta_radius  = absint( get_theme_mod( 'sodepy_cta_border_radius', 6 ) );
+	$cta_style   = get_theme_mod( 'sodepy_cta_style', 'filled' );
+
 	$hdr_width   = absint( get_theme_mod( 'sodepy_header_width', 1280 ) );
 	$pad_y       = (float) get_theme_mod( 'sodepy_header_pad_y', 1.0 );
 	$bg_type     = get_theme_mod( 'sodepy_header_bg_type', 'color' );
@@ -34,10 +40,8 @@ function sodepy_header_dynamic_css(): void {
 	$brand_just = $self[ $logo_pos ]  ?? 'start';
 	$nav_col    = $cols[ $nav_pos ]   ?? 2;
 	$nav_just   = $self[ $nav_pos ]   ?? 'center';
-
-	// CTA goes to the column not used by brand, defaulting to 3
-	$cta_col    = ( $brand_col === 3 ) ? 1 : 3;
-	$cta_just   = ( $cta_col === 1 ) ? 'start' : 'end';
+	$cta_col    = $cols[ $cta_pos ]   ?? 3;
+	$cta_just   = $self[ $cta_pos ]   ?? 'end';
 
 	/* ── Build CSS ─────────────────────────────────── */
 	$css = '';
@@ -76,8 +80,44 @@ function sodepy_header_dynamic_css(): void {
 		$css .= '.site-header .wp-block-site-title{color:' . $name_color . '!important;}';
 	}
 
+	// CTA button styles
+	if ( 'outline' === $cta_style ) {
+		$css .= '.header-btn-cta{background:transparent!important;border:2px solid ' . $cta_color . '!important;color:' . $cta_color . '!important;border-radius:' . $cta_radius . 'px!important;}';
+		$css .= '.header-btn-cta:hover{background:' . $cta_color . '!important;color:' . $bg_color . '!important;}';
+	} else {
+		$css .= '.header-btn-cta{background-color:' . $cta_bg . '!important;color:' . $cta_color . '!important;border:none!important;border-radius:' . $cta_radius . 'px!important;}';
+		$css .= '.header-btn-cta:hover{filter:brightness(1.1);}';
+	}
+	$css .= '.header-btn-cta{display:inline-block;padding:.625rem 1.25rem;font-weight:600;font-size:.875rem;text-decoration:none;transition:all .2s ease;white-space:nowrap;cursor:pointer;line-height:1.4;}';
+
 	// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	echo '<style id="sodepy-hdr">' . $css . '</style>' . "\n";
+}
+
+/**
+ * Inject the CTA button into .header-cta via render_block filter.
+ * This replaces the empty div with the dynamic button when enabled.
+ */
+add_filter( 'render_block', 'sodepy_inject_header_cta', 10, 2 );
+function sodepy_inject_header_cta( string $block_content, array $block ): string {
+	if ( ( $block['blockName'] ?? '' ) !== 'core/group' ) {
+		return $block_content;
+	}
+	if ( strpos( $block['attrs']['className'] ?? '', 'header-cta' ) === false ) {
+		return $block_content;
+	}
+
+	$show_cta = (bool) get_theme_mod( 'sodepy_show_cta', true );
+	if ( ! $show_cta ) {
+		return '<div class="wp-block-group header-cta"></div>';
+	}
+
+	$text = esc_html( get_theme_mod( 'sodepy_cta_text', 'Solicitar info →' ) );
+	$url  = esc_url( get_theme_mod( 'sodepy_cta_url', '#contacto' ) );
+
+	return '<div class="wp-block-group header-cta">
+		<a class="header-btn-cta" href="' . $url . '">' . $text . '</a>
+	</div>';
 }
 
 /**
@@ -89,7 +129,6 @@ function sodepy_header_nav_overlay( array $block, array $source_block ): array {
 	if ( ( $block['blockName'] ?? '' ) !== 'core/navigation' ) {
 		return $block;
 	}
-	// Only affect the header navigation
 	$class = $block['attrs']['className'] ?? '';
 	if ( strpos( $class, 'site-nav' ) === false ) {
 		return $block;

@@ -148,6 +148,84 @@ function sodepy_customizer_header( WP_Customize_Manager $wp_customize ): void {
 	] );
 
 	/* ══════════════════════════════════════
+	   Botón CTA
+	══════════════════════════════════════ */
+	$wp_customize->add_section( 'sodepy_s_cta', [
+		'title' => 'Botón CTA',
+		'panel' => 'sodepy_cabecera',
+	] );
+
+	sodepy_add_setting( $wp_customize, 'sodepy_show_cta', true, 'wp_validate_boolean' );
+	$wp_customize->add_control( 'sodepy_show_cta', [
+		'label'    => 'Mostrar botón CTA',
+		'section'  => 'sodepy_s_cta',
+		'type'     => 'checkbox',
+		'priority' => 1,
+	] );
+
+	sodepy_add_setting( $wp_customize, 'sodepy_cta_text', 'Solicitar info →', 'sanitize_text_field' );
+	$wp_customize->add_control( 'sodepy_cta_text', [
+		'label'    => 'Texto del botón',
+		'section'  => 'sodepy_s_cta',
+		'type'     => 'text',
+		'priority' => 2,
+	] );
+
+	sodepy_add_setting( $wp_customize, 'sodepy_cta_url', '#contacto', 'esc_url_raw' );
+	$wp_customize->add_control( 'sodepy_cta_url', [
+		'label'    => 'Enlace del botón (URL o #ancla)',
+		'section'  => 'sodepy_s_cta',
+		'type'     => 'text',
+		'priority' => 3,
+	] );
+
+	sodepy_add_setting( $wp_customize, 'sodepy_cta_position', 'right', 'sodepy_san_position' );
+	$wp_customize->add_control( 'sodepy_cta_position', [
+		'label'    => 'Posición del botón',
+		'section'  => 'sodepy_s_cta',
+		'type'     => 'radio',
+		'choices'  => [ 'left' => '← Izquierda', 'center' => '↔ Centro', 'right' => '→ Derecha' ],
+		'priority' => 4,
+	] );
+
+	sodepy_add_setting( $wp_customize, 'sodepy_cta_style', 'filled', 'sodepy_san_ctastyle' );
+	$wp_customize->add_control( 'sodepy_cta_style', [
+		'label'    => 'Estilo del botón',
+		'section'  => 'sodepy_s_cta',
+		'type'     => 'radio',
+		'choices'  => [
+			'filled'  => 'Relleno',
+			'outline' => 'Contorno (outline)',
+		],
+		'priority' => 5,
+	] );
+
+	sodepy_add_setting( $wp_customize, 'sodepy_cta_bg_color', '#F28D0A', 'sanitize_hex_color' );
+	$wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'sodepy_cta_bg_color', [
+		'label'       => 'Color de fondo del botón',
+		'description' => 'Solo aplica en estilo "Relleno".',
+		'section'     => 'sodepy_s_cta',
+		'priority'    => 6,
+	] ) );
+
+	sodepy_add_setting( $wp_customize, 'sodepy_cta_text_color', '#ffffff', 'sanitize_hex_color' );
+	$wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'sodepy_cta_text_color', [
+		'label'    => 'Color del texto del botón',
+		'section'  => 'sodepy_s_cta',
+		'priority' => 7,
+	] ) );
+
+	sodepy_add_setting( $wp_customize, 'sodepy_cta_border_radius', 6, 'absint' );
+	$wp_customize->add_control( 'sodepy_cta_border_radius', [
+		'label'       => 'Radio del borde (px)',
+		'description' => '0 = esquinas rectas · 100 = píldora',
+		'section'     => 'sodepy_s_cta',
+		'type'        => 'range',
+		'input_attrs' => [ 'min' => 0, 'max' => 100, 'step' => 2 ],
+		'priority'    => 8,
+	] );
+
+	/* ══════════════════════════════════════
 	   Diseño general
 	══════════════════════════════════════ */
 	$wp_customize->add_section( 'sodepy_s_design', [
@@ -230,4 +308,7 @@ function sodepy_san_float( $v ): float {
 }
 function sodepy_san_weight( string $v ): string {
 	return in_array( $v, [ '400', '500', '600', '700', '800' ], true ) ? $v : '700';
+}
+function sodepy_san_ctastyle( string $v ): string {
+	return in_array( $v, [ 'filled', 'outline' ], true ) ? $v : 'filled';
 }
