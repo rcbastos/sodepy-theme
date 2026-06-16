@@ -71,10 +71,10 @@ a { transition: color 0.2s ease; }
 	min-width: 0;
 }
 
-/* Site logo color fix in dark header */
+/* Site logo — display as-is (colors preserved) */
 .site-header .wp-block-site-logo img {
-	filter: brightness(10);
 	height: auto;
+	display: block;
 }
 
 /* Site title default style in header */
