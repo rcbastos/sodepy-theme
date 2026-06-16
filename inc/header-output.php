@@ -121,6 +121,42 @@ function sodepy_inject_header_cta( string $block_content, array $block ): string
 }
 
 /**
+ * Replace wp-block-site-logo output with clean HTML — no block wrapper, no stray backgrounds.
+ */
+add_filter( 'render_block', 'sodepy_render_site_logo', 10, 2 );
+function sodepy_render_site_logo( string $block_content, array $block ): string {
+	if ( ( $block['blockName'] ?? '' ) !== 'core/site-logo' ) {
+		return $block_content;
+	}
+
+	$show = (bool) get_theme_mod( 'sodepy_show_logo', true );
+	if ( ! $show ) {
+		return '';
+	}
+
+	$logo_id = (int) get_theme_mod( 'custom_logo', 0 );
+	if ( ! $logo_id ) {
+		return '';
+	}
+
+	$width   = absint( get_theme_mod( 'sodepy_logo_width', 140 ) );
+	$src     = wp_get_attachment_image_url( $logo_id, 'full' );
+	$alt     = trim( (string) get_post_meta( $logo_id, '_wp_attachment_image_alt', true ) );
+	if ( ! $alt ) {
+		$alt = get_bloginfo( 'name' );
+	}
+
+	if ( ! $src ) {
+		return '';
+	}
+
+	return '<div class="sodepy-logo">'
+		. '<a href="' . esc_url( home_url( '/' ) ) . '" rel="home" aria-label="' . esc_attr( $alt ) . '">'
+		. '<img src="' . esc_url( $src ) . '" alt="' . esc_attr( $alt ) . '" width="' . $width . '" height="auto" loading="eager" decoding="async">'
+		. '</a></div>';
+}
+
+/**
  * Change navigation overlayMenu based on Customizer nav style setting.
  * Targets only the header nav block (className = site-nav).
  */
