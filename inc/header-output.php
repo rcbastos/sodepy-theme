@@ -164,9 +164,11 @@ function sodepy_zone_builder( string $content, array $block ): string {
 		return $content;
 	}
 
-	// Navigation
+	// Navigation — use wp_nav_menu() directly; falls back to block output only
+	// if no classic 'primary' menu is assigned.
 	if ( 'core/navigation' === $name && strpos( $class, 'site-nav' ) !== false ) {
-		$els['nav'] = $content;
+		$classic    = sodepy_render_primary_nav();
+		$els['nav'] = $classic !== '' ? $classic : $content;
 		return $content;
 	}
 
@@ -223,6 +225,73 @@ function sodepy_zone_builder( string $content, array $block ): string {
 }
 
 /**
+ * Walker that produces sodepy-nav HTML for classic wp_nav_menu() items.
+ */
+class Sodepy_Nav_Walker extends Walker_Nav_Menu {
+
+	public function start_lvl( &$output, $depth = 0, $args = null ) {
+		$output .= '<ul class="sodepy-nav-submenu">';
+	}
+
+	public function end_lvl( &$output, $depth = 0, $args = null ) {
+		$output .= '</ul>';
+	}
+
+	public function start_el( &$output, $data_object, $depth = 0, $args = null, $current_object_id = 0 ) {
+		$item       = $data_object;
+		$title      = apply_filters( 'the_title', $item->title, $item->ID );
+		$url        = $item->url ?? '#';
+		$target     = ! empty( $item->target ) ? ' target="' . esc_attr( $item->target ) . '"' : '';
+		$rel        = ! empty( $item->xfn ) ? ' rel="' . esc_attr( $item->xfn ) . '"' : '';
+		$is_current = in_array( 'current-menu-item', (array) $item->classes, true );
+		$li_class   = 'sodepy-nav-item' . ( $is_current ? ' is-active' : '' );
+
+		$output .= '<li class="' . esc_attr( $li_class ) . '">'
+			. '<a class="sodepy-nav-link" href="' . esc_url( $url ) . '"' . $target . $rel . '>'
+			. esc_html( $title )
+			. '</a>';
+	}
+
+	public function end_el( &$output, $data_object, $depth = 0, $args = null ) {
+		$output .= '</li>';
+	}
+}
+
+/**
+ * Render the primary classic menu as a sodepy-nav element with hamburger support.
+ * Returns an empty string when no classic 'primary' menu is assigned.
+ */
+function sodepy_render_primary_nav(): string {
+	$items = wp_nav_menu( [
+		'theme_location' => 'primary',
+		'container'      => false,
+		'echo'           => false,
+		'fallback_cb'    => false,
+		'items_wrap'     => '%3$s',
+		'walker'         => new Sodepy_Nav_Walker(),
+	] );
+
+	if ( ! $items ) {
+		return '';
+	}
+
+	$style = get_theme_mod( 'sodepy_nav_style', 'horizontal' );
+
+	// phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped
+	$burger = '<svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="currentColor"><rect x="4" y="7" width="16" height="1.5" rx=".75"/><rect x="4" y="11.25" width="16" height="1.5" rx=".75"/><rect x="4" y="15.5" width="16" height="1.5" rx=".75"/></svg>';
+	$close  = '<svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none"><path d="M18 6 6 18M6 6l12 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>';
+
+	return '<nav class="sodepy-nav site-nav" data-nav-style="' . esc_attr( $style ) . '" aria-label="' . esc_attr__( 'Menú principal', 'sodepy' ) . '">'
+		. '<button class="sodepy-nav-toggle" type="button" aria-expanded="false" aria-label="' . esc_attr__( 'Abrir menú', 'sodepy' ) . '">' . $burger . '</button>'
+		. '<div class="sodepy-nav-panel">'
+		. '<button class="sodepy-nav-close" type="button" aria-label="' . esc_attr__( 'Cerrar menú', 'sodepy' ) . '">' . $close . '</button>'
+		. '<ul class="sodepy-nav-menu">' . $items . '</ul>'
+		. '</div>'
+		. '</nav>';
+	// phpcs:enable
+}
+
+/**
  * Floating CTA button — rendered in <footer>, visible on mobile/tablet via CSS.
  * Reuses .header-btn-cta so it inherits all Customizer color/radius styles.
  * Not rendered at all when sodepy_show_cta is false.
@@ -239,19 +308,8 @@ function sodepy_floating_cta(): void {
 }
 
 /**
- * Nav block data filter — fires inside WP_Block::__construct() BEFORE the block
- * renderer runs. Three jobs:
- *
- * 1. overlayMenu  — sync hamburger/horizontal from Customizer.
- * 2. Unset ref    — if a wp_navigation post ref is stored in the DB template,
- *                   remove it so it cannot override __unstableLocation.
- * 3. Clear inner_blocks + innerContent — if the DB template already has menu
- *                   items as inner blocks (e.g. "Sample Page"), empty them so
- *                   the renderer falls through to __unstableLocation.
- * 4. __unstableLocation — tell the renderer to use the classic 'primary' menu.
- *
- * This keeps the navigation block's full Interactivity API output intact
- * (data-wp-interactive, data-wp-context, etc.), so the hamburger JS works.
+ * Fallback: if no classic 'primary' menu is assigned, set overlayMenu so the
+ * WP navigation block fallback (if used) respects the Customizer nav style.
  */
 add_filter( 'render_block_data', 'sodepy_header_nav_overlay', 10, 2 );
 function sodepy_header_nav_overlay( array $block, array $source_block ): array {
@@ -261,20 +319,7 @@ function sodepy_header_nav_overlay( array $block, array $source_block ): array {
 	if ( strpos( $block['attrs']['className'] ?? '', 'site-nav' ) === false ) {
 		return $block;
 	}
-
-	// 1. Overlay mode from Customizer
 	$style = get_theme_mod( 'sodepy_nav_style', 'horizontal' );
 	$block['attrs']['overlayMenu'] = ( 'hamburger' === $style ) ? 'always' : 'mobile';
-
-	// 2-4. Force the block to use the classic 'primary' menu location
-	if ( has_nav_menu( 'primary' ) ) {
-		unset( $block['attrs']['ref'] );
-		$block['attrs']['__unstableLocation'] = 'primary';
-		// Clear any pre-resolved inner blocks (stored menu items from the DB
-		// template) so the renderer does not skip __unstableLocation.
-		$block['innerBlocks']  = [];
-		$block['innerContent'] = [ '' ];
-	}
-
 	return $block;
 }

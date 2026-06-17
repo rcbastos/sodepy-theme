@@ -53,11 +53,7 @@
 		window.scrollTo( { top, behavior: 'smooth' } );
 
 		// Cerrar menú móvil si está abierto
-		const mobileMenu = document.querySelector( '.wp-block-navigation__responsive-container.is-menu-open' );
-		if ( mobileMenu ) {
-			const closeBtn = mobileMenu.querySelector( '.wp-block-navigation__responsive-container-close' );
-			closeBtn?.click();
-		}
+		document.querySelector( '.sodepy-nav-close' )?.click();
 	} );
 
 	/* =========================================================
@@ -193,18 +189,29 @@
 	} );
 
 	/* =========================================================
-	   7. MOBILE MENU — mejorar accesibilidad del menú nativo de WP
+	   7. HAMBURGER NAVIGATION TOGGLE
 	   ========================================================= */
-	document.addEventListener( 'keydown', ( e ) => {
-		if ( e.key === 'Escape' ) {
-			const mobileOpen = document.querySelector(
-				'.wp-block-navigation__responsive-container.is-menu-open'
-			);
-			if ( mobileOpen ) {
-				mobileOpen.querySelector( '.wp-block-navigation__responsive-container-close' )?.click();
-			}
-		}
-	} );
+	const navToggle = document.querySelector( '.sodepy-nav-toggle' );
+	const navPanel  = document.querySelector( '.sodepy-nav-panel' );
+	const navClose  = document.querySelector( '.sodepy-nav-close' );
+
+	if ( navToggle && navPanel ) {
+		const openNav = () => {
+			navPanel.classList.add( 'is-open' );
+			navToggle.setAttribute( 'aria-expanded', 'true' );
+			document.body.classList.add( 'nav-is-open' );
+		};
+		const closeNav = () => {
+			navPanel.classList.remove( 'is-open' );
+			navToggle.setAttribute( 'aria-expanded', 'false' );
+			document.body.classList.remove( 'nav-is-open' );
+		};
+		navToggle.addEventListener( 'click', openNav );
+		navClose?.addEventListener( 'click', closeNav );
+		document.addEventListener( 'keydown', ( e ) => {
+			if ( e.key === 'Escape' && navPanel.classList.contains( 'is-open' ) ) closeNav();
+		} );
+	}
 
 	/* =========================================================
 	   8. CTA EN MENÚ HAMBURGUESA — inyecta el botón CTA dentro del
@@ -215,22 +222,18 @@
 
 	if ( ctaData && ctaData.show ) {
 		const injectNavCta = () => {
-			const content = document.querySelector(
-				'.site-nav .wp-block-navigation__responsive-container-content'
-			);
-			if ( ! content || content.querySelector( '.header-cta-nav-mobile' ) ) return;
+			const panel = document.querySelector( '.sodepy-nav-panel' );
+			if ( ! panel || panel.querySelector( '.header-cta-nav-mobile' ) ) return;
 
 			const a = document.createElement( 'a' );
-			a.href      = ctaData.url;
-			a.className = 'header-btn-cta header-cta-nav-mobile';
+			a.href        = ctaData.url;
+			a.className   = 'header-btn-cta header-cta-nav-mobile';
 			a.textContent = ctaData.text;
-			content.appendChild( a );
+			panel.appendChild( a );
 		};
 
-		// Inyectar al abrir el menú (solo la primera vez — { once: true })
-		document.querySelectorAll(
-			'.site-nav .wp-block-navigation__responsive-container-open'
-		).forEach( ( btn ) => btn.addEventListener( 'click', injectNavCta, { once: true } ) );
+		document.querySelectorAll( '.sodepy-nav-toggle' )
+			.forEach( ( btn ) => btn.addEventListener( 'click', injectNavCta, { once: true } ) );
 	}
 
 	/* =========================================================
