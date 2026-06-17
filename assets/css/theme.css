@@ -861,16 +861,153 @@ a { transition: color 0.2s ease; }
 
 /* =========================================================
    RESPONSIVE
+   =========================================================
+   spacing tokens reference:
+     --30 = 0.75rem  --40 = 1rem   --50 = 1.5rem
+     --60 = 2rem     --70 = 3rem   --80 = 4rem   --100 = 8rem
    ========================================================= */
-@media (max-width: 768px) {
-	.header-cta { display: none; }
+
+/* ── 1024px — tablet landscape ─────────────────────────── */
+@media (max-width: 1024px) {
+
+	/* Reduce side padding on all sections */
+	.hero-section,
+	.problem-section,
+	.services-section,
+	.process-section,
+	.why-us-section,
+	.video-autoplay-section {
+		padding-inline: var(--wp--preset--spacing--50); /* 1.5rem */
+	}
+
+	/* Why us: tighter gap between text column and grid */
+	.why-us-columns { gap: var(--wp--preset--spacing--60) !important; }
+
+	/* Process: 2 columns on tablet instead of 3-4 */
+	.process-grid { grid-template-columns: repeat(2, 1fr) !important; }
+
+	/* Stats: 2 wide columns */
 	.stats-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ── 768px — tablet portrait & mobile ──────────────────── */
+@media (max-width: 768px) {
+
+	/* Header: reduce padding, shrink logo */
+	.header-inner {
+		padding-top: 0.625rem;
+		padding-bottom: 0.625rem;
+		padding-inline: 1rem;
+	}
+
+	.sodepy-logo img { width: 100px !important; }
+
+	/* Hide CTA button — not enough space on mobile */
+	.header-cta { display: none !important; }
+
+	/* Sections: cut vertical padding from 8rem → 4rem */
+	.hero-section,
+	.problem-section,
+	.services-section,
+	.process-section,
+	.why-us-section {
+		padding-top: var(--wp--preset--spacing--80);    /* 4rem */
+		padding-bottom: var(--wp--preset--spacing--80);
+		padding-inline: var(--wp--preset--spacing--40); /* 1rem */
+	}
+
+	/* Video: reduce min-height */
+	.video-autoplay-section,
+	.video-autoplay-content { min-height: 55vh; }
+
+	/* Custom grids: collapse to single column */
+	.problem-grid,
+	.process-grid { grid-template-columns: 1fr !important; }
+
+	/* WordPress columns-based grids */
 	.services-grid,
 	.portfolio-query-grid .wp-block-post-template,
 	.testimonials-grid { grid-template-columns: 1fr; }
+
+	/* Services flex row: stack cards */
+	.services-row { flex-direction: column !important; }
+
+	/* Why us: stack the text + grid two-column layout */
+	.why-us-columns { flex-direction: column !important; }
+
+	/* Why us inner grid: 2 cols on tablet, collapses at 480 */
+	.why-us-grid { grid-template-columns: repeat(2, 1fr); }
+
+	/* Stats */
+	.stats-grid { grid-template-columns: repeat(2, 1fr); }
+
+	/* Section header: less gap below */
+	.section-header { margin-bottom: var(--wp--preset--spacing--50); }
+
+	/* Decorative process number: scale down */
+	.process-number { font-size: 2.5rem; }
 }
 
+/* ── 480px — small phones ───────────────────────────────── */
 @media (max-width: 480px) {
-	.stats-grid { grid-template-columns: repeat(2, 1fr); }
+
+	/* Minimal horizontal padding */
+	.hero-section,
+	.problem-section,
+	.services-section,
+	.process-section,
+	.why-us-section {
+		padding-inline: var(--wp--preset--spacing--30); /* 0.75rem */
+	}
+
 	.hero-cover { min-height: 100svh; }
+
+	/* Logo: very small on tiny screens */
+	.sodepy-logo img { width: 80px !important; }
+
+	/* Why us grid: 1 column */
+	.why-us-grid { grid-template-columns: 1fr; }
+
+	/* Card padding: reduce on tiny screens */
+	.problem-card   { padding: var(--wp--preset--spacing--40); }
+	.process-step   { padding: var(--wp--preset--spacing--50) var(--wp--preset--spacing--40); }
+	.service-body   { padding: var(--wp--preset--spacing--40); }
+	.why-us-card    { padding: var(--wp--preset--spacing--40); }
+
+	/* Stats: keep 2 cols even on small phones */
+	.stats-grid { grid-template-columns: repeat(2, 1fr); }
+
+	/* Process number: smaller */
+	.process-number { font-size: 2rem; }
+}
+
+/* ── Mobile navigation overlay (hamburger menu drawer) ───── */
+.site-header .wp-block-navigation__responsive-container.is-menu-open {
+	background-color: #0A2650 !important;
+	z-index: 9999;
+}
+
+.site-header .wp-block-navigation__responsive-container.is-menu-open
+.wp-block-navigation__container {
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 0;
+	padding-top: 1rem;
+}
+
+.site-header .wp-block-navigation__responsive-container.is-menu-open
+.wp-block-navigation-item__content {
+	font-size: 1.125rem !important;
+	color: rgba(255, 255, 255, 0.9) !important;
+	padding: 0.75rem 0;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.site-header .wp-block-navigation__responsive-container.is-menu-open
+.wp-block-navigation-item__content:hover {
+	color: #F28D0A !important;
+}
+
+.site-header .wp-block-navigation__responsive-container-close {
+	color: #ffffff !important;
 }

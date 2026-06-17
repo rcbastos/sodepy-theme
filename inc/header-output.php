@@ -234,6 +234,8 @@ function sodepy_header_nav_overlay( array $block, array $source_block ): array {
 		return $block;
 	}
 	$style = get_theme_mod( 'sodepy_nav_style', 'horizontal' );
-	$block['attrs']['overlayMenu'] = ( 'hamburger' === $style ) ? 'always' : 'never';
+	// 'mobile' lets WordPress handle the responsive break automatically on small screens;
+	// 'always' forces the hamburger at every viewport width.
+	$block['attrs']['overlayMenu'] = ( 'hamburger' === $style ) ? 'always' : 'mobile';
 	return $block;
 }
