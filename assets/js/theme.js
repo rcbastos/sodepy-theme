@@ -193,7 +193,34 @@
 	} );
 
 	/* =========================================================
-	   8. LAZY LOAD manual para videos (no hero) — carga src cuando
+	   8. CTA EN MENÚ HAMBURGUESA — inyecta el botón CTA dentro del
+	      panel de navegación móvil la primera vez que se abre.
+	      Solo se muestra si sodepy_show_cta está activo en el Customizer.
+	   ========================================================= */
+	const ctaData = ( typeof SodepyData !== 'undefined' ) ? SodepyData.cta : null;
+
+	if ( ctaData && ctaData.show ) {
+		const injectNavCta = () => {
+			const content = document.querySelector(
+				'.site-nav .wp-block-navigation__responsive-container-content'
+			);
+			if ( ! content || content.querySelector( '.header-cta-nav-mobile' ) ) return;
+
+			const a = document.createElement( 'a' );
+			a.href      = ctaData.url;
+			a.className = 'header-btn-cta header-cta-nav-mobile';
+			a.textContent = ctaData.text;
+			content.appendChild( a );
+		};
+
+		// Inyectar al abrir el menú (solo la primera vez — { once: true })
+		document.querySelectorAll(
+			'.site-nav .wp-block-navigation__responsive-container-open'
+		).forEach( ( btn ) => btn.addEventListener( 'click', injectNavCta, { once: true } ) );
+	}
+
+	/* =========================================================
+	   9. LAZY LOAD manual para videos (no hero) — carga src cuando
 	      el elemento esté cerca del viewport
 	   ========================================================= */
 	const lazySources = document.querySelectorAll( 'source[data-src]' );

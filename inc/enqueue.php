@@ -31,6 +31,11 @@ function sodepy_enqueue_assets(): void {
 		'nonce'   => wp_create_nonce( 'sodepy_nonce' ),
 		'isRtl'   => is_rtl(),
 		'lang'    => get_locale(),
+		'cta'     => [
+			'show' => (bool) get_theme_mod( 'sodepy_show_cta', true ),
+			'text' => get_theme_mod( 'sodepy_cta_text', 'Solicitar info →' ),
+			'url'  => get_theme_mod( 'sodepy_cta_url', '#contacto' ),
+		],
 	] );
 }
 

@@ -168,6 +168,50 @@ a { transition: color 0.2s ease; }
 	font-weight: 600;
 }
 
+/* CTA button base — shared by header, hamburger overlay and floating button */
+.header-btn-cta {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: 0.6rem 1.25rem;
+	font-size: 0.875rem;
+	font-weight: 600;
+	line-height: 1;
+	white-space: nowrap;
+	text-decoration: none;
+	cursor: pointer;
+	transition: filter 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* ── Floating CTA (mobile/tablet only) ── */
+.floating-cta-btn {
+	display: none;          /* hidden on desktop */
+	position: fixed;
+	bottom: 1.375rem;
+	right: 1.375rem;
+	z-index: 998;
+	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.22);
+}
+
+.floating-cta-btn:hover {
+	transform: translateY(-3px);
+	box-shadow: 0 8px 28px rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 1024px) {
+	.floating-cta-btn { display: inline-flex; }
+}
+
+/* ── CTA injected inside hamburger nav overlay ── */
+.header-cta-nav-mobile {
+	display: flex !important;
+	width: 100%;
+	margin-top: 1.75rem;
+	padding: 0.875rem 1.5rem;
+	font-size: 1rem;
+	justify-content: center;
+}
+
 /* Botón del header */
 .header-btn a {
 	font-size: 0.875rem;

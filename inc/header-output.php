@@ -223,6 +223,22 @@ function sodepy_zone_builder( string $content, array $block ): string {
 }
 
 /**
+ * Floating CTA button — rendered in <footer>, visible on mobile/tablet via CSS.
+ * Reuses .header-btn-cta so it inherits all Customizer color/radius styles.
+ * Not rendered at all when sodepy_show_cta is false.
+ */
+add_action( 'wp_footer', 'sodepy_floating_cta' );
+function sodepy_floating_cta(): void {
+	if ( ! (bool) get_theme_mod( 'sodepy_show_cta', true ) ) {
+		return;
+	}
+	$text = esc_html( get_theme_mod( 'sodepy_cta_text', 'Solicitar info →' ) );
+	$url  = esc_url( get_theme_mod( 'sodepy_cta_url', '#contacto' ) );
+	// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+	echo '<a href="' . $url . '" class="header-btn-cta floating-cta-btn" aria-label="' . esc_attr( $text ) . '">' . $text . '</a>' . "\n";
+}
+
+/**
  * Change navigation overlayMenu based on Customizer nav style setting.
  */
 add_filter( 'render_block_data', 'sodepy_header_nav_overlay', 10, 2 );
