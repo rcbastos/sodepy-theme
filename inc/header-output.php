@@ -239,14 +239,7 @@ function sodepy_floating_cta(): void {
 }
 
 /**
- * Nav block data filter — two jobs:
- *
- * 1. overlayMenu: sync hamburger/horizontal setting from Customizer.
- * 2. __unstableLocation: bridge classic menus (Apariencia → Menús) to the
- *    FSE navigation block. When the block has no explicit post ref, WordPress
- *    would fall back to whatever navigation post it finds first. By setting
- *    __unstableLocation = 'primary', we tell the block to render the classic
- *    menu assigned to the 'primary' location (Menú principal in the Customizer).
+ * Nav block data filter — sets overlayMenu attribute from Customizer.
  */
 add_filter( 'render_block_data', 'sodepy_header_nav_overlay', 10, 2 );
 function sodepy_header_nav_overlay( array $block, array $source_block ): array {
@@ -256,16 +249,115 @@ function sodepy_header_nav_overlay( array $block, array $source_block ): array {
 	if ( strpos( $block['attrs']['className'] ?? '', 'site-nav' ) === false ) {
 		return $block;
 	}
-
-	// 1. Responsive overlay mode
 	$style = get_theme_mod( 'sodepy_nav_style', 'horizontal' );
 	$block['attrs']['overlayMenu'] = ( 'hamburger' === $style ) ? 'always' : 'mobile';
+	return $block;
+}
 
-	// 2. Use the classic 'primary' menu location when no nav post is explicitly set.
-	//    This makes Apariencia → Menús → Menú principal work with the FSE nav block.
-	if ( empty( $block['attrs']['ref'] ) && has_nav_menu( 'primary' ) ) {
-		$block['attrs']['__unstableLocation'] = 'primary';
+/**
+ * Walker that outputs nav-block-compatible HTML for classic wp_nav_menu items.
+ * Matches the classes and structure WordPress navigation block produces so
+ * our existing CSS and the nav block JS both work unchanged.
+ */
+class Sodepy_Nav_Walker extends Walker_Nav_Menu {
+
+	public function start_lvl( &$output, $depth = 0, $args = null ) {
+		$output .= '<ul class="wp-block-navigation__submenu-container wp-block-navigation__container">';
 	}
 
-	return $block;
+	public function end_lvl( &$output, $depth = 0, $args = null ) {
+		$output .= '</ul>';
+	}
+
+	public function start_el( &$output, $data_object, $depth = 0, $args = null, $current_object_id = 0 ) {
+		$item   = $data_object;
+		$title  = apply_filters( 'the_title', $item->title, $item->ID );
+		$url    = $item->url ?? '#';
+		$target = ! empty( $item->target ) ? ' target="' . esc_attr( $item->target ) . '"' : '';
+		$rel    = ! empty( $item->xfn ) ? ' rel="' . esc_attr( $item->xfn ) . '"' : '';
+
+		$li_class = 'wp-block-navigation-item wp-block-pages-list__item';
+		if ( in_array( 'current-menu-item', (array) $item->classes, true ) ) {
+			$li_class .= ' current-menu-item';
+		}
+
+		$output .= '<li class="' . esc_attr( $li_class ) . '">'
+			. '<a class="wp-block-navigation-item__content" href="' . esc_url( $url ) . '"' . $target . $rel . '>'
+			. esc_html( $title )
+			. '</a>';
+	}
+
+	public function end_el( &$output, $data_object, $depth = 0, $args = null ) {
+		$output .= '</li>';
+	}
+}
+
+/**
+ * Replace the rendered navigation block with a direct wp_nav_menu() render.
+ *
+ * Priority 9 — fires before sodepy_zone_builder (11) captures the element.
+ *
+ * Root cause this fixes: if the FSE header template part is stored in the
+ * database (e.g. after using the Site Editor), it may have a `ref` pointing
+ * to a wp_navigation post that contains old items ("Sample Page"). WordPress
+ * resolves that ref BEFORE render_block fires, so modifying attrs afterwards
+ * is too late. By replacing the full rendered output here, we guarantee the
+ * header always shows the classic menu assigned to Apariencia → Menús →
+ * Menú principal — regardless of database template state.
+ */
+add_filter( 'render_block', 'sodepy_nav_use_classic_menu', 9, 2 );
+function sodepy_nav_use_classic_menu( string $content, array $block ): string {
+	if ( ( $block['blockName'] ?? '' ) !== 'core/navigation' ) {
+		return $content;
+	}
+	if ( strpos( $block['attrs']['className'] ?? '', 'site-nav' ) === false ) {
+		return $content;
+	}
+	if ( ! has_nav_menu( 'primary' ) ) {
+		return $content;
+	}
+
+	$nav_items = wp_nav_menu( [
+		'theme_location' => 'primary',
+		'container'      => false,
+		'items_wrap'     => '%3$s',
+		'echo'           => false,
+		'fallback_cb'    => false,
+		'walker'         => new Sodepy_Nav_Walker(),
+	] );
+
+	if ( ! $nav_items ) {
+		return $content;
+	}
+
+	$style = get_theme_mod( 'sodepy_nav_style', 'horizontal' );
+	$uid   = wp_unique_id( 'sodepy-nav-' );
+
+	$open_class      = 'wp-block-navigation__responsive-container-open';
+	$container_class = 'wp-block-navigation__responsive-container';
+	if ( 'hamburger' === $style ) {
+		$open_class      .= ' always-shown';
+		$container_class .= ' hidden-by-default';
+	}
+
+	$icon_open  = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="4" y="7.5" width="16" height="1.5"/><rect x="4" y="11" width="16" height="1.5"/><rect x="4" y="14.5" width="16" height="1.5"/></svg>';
+	$icon_close = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M13 11.8l6.1-6.3-1-1-6.1 6.2-6.1-6.2-1 1 6.1 6.3-6.5 6.7 1 1 6.5-6.6 6.5 6.6 1-1z"/></svg>';
+
+	// phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped
+	return '<nav class="wp-block-navigation site-nav" aria-label="' . esc_attr__( 'Menú principal', 'sodepy' ) . '">'
+		. '<button class="' . esc_attr( $open_class ) . '" aria-haspopup="true" aria-label="' . esc_attr__( 'Abrir menú', 'sodepy' ) . '" aria-controls="' . esc_attr( $uid ) . '" aria-expanded="false">'
+		. $icon_open
+		. '</button>'
+		. '<div id="' . esc_attr( $uid ) . '" class="' . esc_attr( $container_class ) . '">'
+		. '<div class="wp-block-navigation__responsive-container-content">'
+		. '<button class="wp-block-navigation__responsive-container-close" aria-label="' . esc_attr__( 'Cerrar menú', 'sodepy' ) . '">'
+		. $icon_close
+		. '</button>'
+		. '<ul class="wp-block-navigation__container">'
+		. $nav_items
+		. '</ul>'
+		. '</div>'
+		. '</div>'
+		. '</nav>';
+	// phpcs:enable
 }
