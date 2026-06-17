@@ -31,7 +31,12 @@ a { transition: color 0.2s ease; }
 
 /* =========================================================
    HEADER STICKY
+   =========================================================
+   --header-height is set dynamically by JS (theme.js section 1).
+   Default 80px used as safe fallback before JS runs.
    ========================================================= */
+:root { --header-height: 80px; }
+
 .site-header {
 	background-color: #0A2650;
 	position: sticky;
@@ -44,6 +49,27 @@ a { transition: color 0.2s ease; }
 	background: rgba(10, 38, 80, 0.97) !important;
 	box-shadow: 0 2px 24px rgba(10, 38, 80, 0.25);
 	backdrop-filter: blur(10px);
+}
+
+/* Remove the WordPress blockGap white stripe between header and page content */
+.wp-site-blocks > .site-header + * {
+	margin-block-start: 0 !important;
+}
+
+/* Hero / video section as first page block: extend background behind the sticky header.
+   margin-top pulls the section up by header height (background fills the gap).
+   padding-top compensates so text content stays below the header. */
+.wp-site-blocks .hero-section:first-child,
+.wp-site-blocks .video-autoplay-section:first-child {
+	margin-top: calc( -1 * var(--header-height) );
+	padding-top: calc( 8rem + var(--header-height) ) !important;
+}
+
+@media (max-width: 768px) {
+	.wp-site-blocks .hero-section:first-child,
+	.wp-site-blocks .video-autoplay-section:first-child {
+		padding-top: calc( 4rem + var(--header-height) ) !important;
+	}
 }
 
 /* 3-zone flex header: left | center | right.

@@ -7,15 +7,29 @@
 
 	/* =========================================================
 	   1. HEADER STICKY — cambia apariencia al hacer scroll
+	      y actualiza --header-height para que el hero sepa
+	      cuánto espacio reservar detrás del header.
 	   ========================================================= */
 	const header = document.querySelector( '.site-header' );
 
 	if ( header ) {
+		// Scroll effect
 		const onHeaderScroll = () => {
 			header.classList.toggle( 'is-scrolled', window.scrollY > 60 );
 		};
 		window.addEventListener( 'scroll', onHeaderScroll, { passive: true } );
 		onHeaderScroll();
+
+		// Publish the real header height as a CSS custom property on :root.
+		// Used by hero-section margin-top / padding-top to slide behind the header.
+		const syncHeaderHeight = () => {
+			document.documentElement.style.setProperty(
+				'--header-height',
+				header.offsetHeight + 'px'
+			);
+		};
+		syncHeaderHeight();
+		window.addEventListener( 'resize', syncHeaderHeight, { passive: true } );
 	}
 
 	/* =========================================================
