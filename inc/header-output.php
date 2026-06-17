@@ -239,7 +239,14 @@ function sodepy_floating_cta(): void {
 }
 
 /**
- * Change navigation overlayMenu based on Customizer nav style setting.
+ * Nav block data filter — two jobs:
+ *
+ * 1. overlayMenu: sync hamburger/horizontal setting from Customizer.
+ * 2. __unstableLocation: bridge classic menus (Apariencia → Menús) to the
+ *    FSE navigation block. When the block has no explicit post ref, WordPress
+ *    would fall back to whatever navigation post it finds first. By setting
+ *    __unstableLocation = 'primary', we tell the block to render the classic
+ *    menu assigned to the 'primary' location (Menú principal in the Customizer).
  */
 add_filter( 'render_block_data', 'sodepy_header_nav_overlay', 10, 2 );
 function sodepy_header_nav_overlay( array $block, array $source_block ): array {
@@ -249,9 +256,16 @@ function sodepy_header_nav_overlay( array $block, array $source_block ): array {
 	if ( strpos( $block['attrs']['className'] ?? '', 'site-nav' ) === false ) {
 		return $block;
 	}
+
+	// 1. Responsive overlay mode
 	$style = get_theme_mod( 'sodepy_nav_style', 'horizontal' );
-	// 'mobile' lets WordPress handle the responsive break automatically on small screens;
-	// 'always' forces the hamburger at every viewport width.
 	$block['attrs']['overlayMenu'] = ( 'hamburger' === $style ) ? 'always' : 'mobile';
+
+	// 2. Use the classic 'primary' menu location when no nav post is explicitly set.
+	//    This makes Apariencia → Menús → Menú principal work with the FSE nav block.
+	if ( empty( $block['attrs']['ref'] ) && has_nav_menu( 'primary' ) ) {
+		$block['attrs']['__unstableLocation'] = 'primary';
+	}
+
 	return $block;
 }
